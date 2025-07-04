@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Basic Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="tjq8288">
+    <meta name="theme-color" content="#10b981">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="BMI 계산기">
+    
+    <!-- SEO Meta Tags will be dynamically updated by JavaScript -->
+    <title>BMI 계산기 - 체중 관리 및 다이어트 플랜</title>
+    <meta name="description" content="정확한 BMI 계산, 적정 체중, 칼로리 계산, 개인 맞춤 다이어트 플랜. 12개 언어 지원하는 무료 건강 관리 도구.">
+    <meta name="keywords" content="BMI 계산기, 체중 관리, 다이어트 플랜, 칼로리 계산, 적정 체중, BMI calculator">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="BMI 계산기 - 체중 관리 및 다이어트 플랜">
+    <meta property="og:description" content="정확한 BMI 계산과 개인 맞춤 다이어트 플랜으로 건강한 체중 관리를 시작하세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tjq8288.github.io/bmi-calculator/">
+    <meta property="og:image" content="https://tjq8288.github.io/bmi-calculator/og-image.png">
+    <meta property="og:site_name" content="BMI 계산기">
+    <meta property="og:locale" content="ko_KR">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BMI 계산기 - 체중 관리 및 다이어트 플랜">
+    <meta name="twitter:description" content="정확한 BMI 계산과 개인 맞춤 다이어트 플랜">
+    <meta name="twitter:image" content="https://tjq8288.github.io/bmi-calculator/og-image.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tjq8288.github.io/bmi-calculator/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzEwYjk4MSIvPgo8dGV4dCB4PSI4IiB5PSIyMiIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSI+Qk1JPC90ZXh0Pgo8L3N2Zz4=">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "BMI Calculator",
+      "alternateName": "BMI 계산기",
+      "description": "Free BMI calculator with personalized diet plans and weight management tools",
+      "url": "https://tjq8288.github.io/bmi-calculator/",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "tjq8288"
+      },
+      "keywords": "BMI calculator, weight management, diet plan, calorie calculator, healthy weight",
+      "inLanguage": ["ko", "en", "zh", "es", "ar", "pt", "hi", "id", "de", "fr", "ja", "ru"],
+      "featureList": [
+        "BMI calculation",
+        "Healthy weight range",
+        "Daily calorie needs",
+        "Personalized diet plans",
+        "12 languages support"
+      ]
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is BMI and how is it calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "BMI (Body Mass Index) is calculated by dividing weight in kilograms by height in meters squared. It's used to categorize weight status and assess health risks."
+        }
+      }, {
+        "@type": "Question", 
+        "name": "What is a healthy BMI range?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "According to WHO guidelines: Underweight (below 18.5), Normal weight (18.5-24.9), Overweight (25-29.9), Obese (30 and above)."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How accurate are the diet plans?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our diet plans are based on scientifically proven formulas like Harris-Benedict equation. However, always consult healthcare professionals for personalized advice."
+        }
+      }]
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            padding: 20px;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* RTL support for Arabic */
+        body[dir="rtl"] {
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 30px;
+            position: relative;
+        }
+
+        #language-selector {
+            position: absolute; 
+            top: 15px; 
+            right: 15px; 
+        }
+
+        body[dir="rtl"] #language-selector {
+            right: auto;
+            left: 15px;
+        }
+
+        #lang-switcher {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background-color: rgba(0,0,0,0.2);
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px 30px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px 16px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            min-width: 120px;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .tab:not(.active) {
+            color: #64748b;
+        }
+
+        .tab-content {
+            display: none;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .input-field {
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .select-field {
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .bmi-result {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .bmi-value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .bmi-category {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .underweight { background: #dbeafe; color: #1d4ed8; }
+        .normal { background: #dcfce7; color: #166534; }
+        .overweight { background: #fef3c7; color: #92400e; }
+        .obese { background: #fecaca; color: #dc2626; }
+
+        .health-info {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f0f9ff;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+
+        .recommendations {
+            margin-top: 20px;
+        }
+
+        .recommendation-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 3px solid #10b981;
+        }
+
+        .diet-plan {
+            margin-top: 20px;
+        }
+
+        .week-plan {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .week-header {
+            font-weight: 600;
+            color: #10b981;
+            margin-bottom: 8px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #10b981;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #16a34a;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 12px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                min-width: 100px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .unit-toggle {
+            display: flex;
+            background: #e5e7eb;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+
+        .unit-option {
+            flex: 1;
+            padding: 8px 16px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .unit-option.active {
+            background: white;
+            color: #10b981;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div id="language-selector"></div>
+            <h1 data-translate="headerTitle">BMI 계산기</h1>
+            <p data-translate="headerSubtitle">체중 관리 및 다이어트 플랜</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" data-tab="bmi" data-translate="bmiTab">BMI 계산</div>
+                <div class="tab" data-tab="calories" data-translate="caloriesTab">일일 필요 칼로리</div>
+                <div class="tab" data-tab="plan" data-translate="planTab">다이어트 플랜</div>
+            </div>
+
+            <!-- BMI Calculator Tab -->
+            <div id="bmi-tab" class="tab-content active">
+                <div class="unit-toggle">
+                    <div class="unit-option active" data-unit="metric" data-translate="metric">미터법 (kg/cm)</div>
+                    <div class="unit-option" data-unit="imperial" data-translate="imperial">야드파운드법 (lbs/ft)</div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="height" data-translate="heightLabel">키</label>
+                        <input type="number" id="height" class="input-field" placeholder="170" data-translate-placeholder="heightPlaceholder">
+                        <small id="height-unit" data-translate="cmUnit">cm</small>
+                    </div>
+                    <div class="input-group">
+                        <label for="weight" data-translate="weightLabel">체중</label>
+                        <input type="number" id="weight" class="input-field" placeholder="70" data-translate-placeholder="weightPlaceholder">
+                        <small id="weight-unit" data-translate="kgUnit">kg</small>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateBMI()" data-translate="calculateBMI">BMI 계산하기</button>
+
+                <div id="bmi-results" class="hidden">
+                    <div class="result-card">
+                        <div class="bmi-result">
+                            <div id="bmi-value" class="bmi-value">0.0</div>
+                            <div id="bmi-category" class="bmi-category"></div>
+                        </div>
+                        
+                        <div class="health-info">
+                            <h3 data-translate="healthyRange">건강한 체중 범위</h3>
+                            <p id="healthy-weight-range"></p>
+                        </div>
+
+                        <div class="recommendations">
+                            <h3 data-translate="recommendations">맞춤 권장사항</h3>
+                            <div id="recommendation-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calories Calculator Tab -->
+            <div id="calories-tab" class="tab-content">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="age" data-translate="ageLabel">나이</label>
+                        <input type="number" id="age" class="input-field" placeholder="25">
+                    </div>
+                    <div class="input-group">
+                        <label for="gender" data-translate="genderLabel">성별</label>
+                        <select id="gender" class="select-field">
+                            <option value="male" data-translate="male">남성</option>
+                            <option value="female" data-translate="female">여성</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="activity" data-translate="activityLabel">활동 수준</label>
+                    <select id="activity" class="select-field">
+                        <option value="sedentary" data-translate="sedentary">거의 운동 안 함</option>
+                        <option value="light" data-translate="light">가벼운 운동 (주 1-3회)</option>
+                        <option value="moderate" data-translate="moderate">보통 운동 (주 3-5회)</option>
+                        <option value="active" data-translate="active">활발한 운동 (주 6-7회)</option>
+                        <option value="veryActive" data-translate="veryActive">매우 활발한 운동</option>
+                    </select>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateCalories()" data-translate="calculateCalories">일일 칼로리 계산</button>
+
+                <div id="calorie-results" class="hidden">
+                    <div class="result-card">
+                        <h3 data-translate="dailyCalories">일일 필요 칼로리</h3>
+                        <div class="bmi-result">
+                            <div id="calorie-value" class="bmi-value" style="color: #10b981;">0</div>
+                            <div data-translate="caloriesPerDay">칼로리/일</div>
+                        </div>
+                        <div id="calorie-breakdown"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diet Plan Tab -->
+            <div id="plan-tab" class="tab-content">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="current-weight" data-translate="currentWeight">현재 체중</label>
+                        <input type="number" id="current-weight" class="input-field" placeholder="70">
+                    </div>
+                    <div class="input-group">
+                        <label for="target-weight" data-translate="targetWeight">목표 체중</label>
+                        <input type="number" id="target-weight" class="input-field" placeholder="65">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="timeframe" data-translate="timeframe">목표 기간 (주)</label>
+                    <input type="number" id="timeframe" class="input-field" placeholder="12" min="4" max="52">
+                </div>
+
+                <button class="calculate-btn" onclick="generateDietPlan()" data-translate="generatePlan">다이어트 플랜 생성</button>
+
+                <div id="diet-plan-results" class="hidden">
+                    <div class="result-card">
+                        <h3 data-translate="personalizedPlan">개인 맞춤 다이어트 플랜</h3>
+                        <div id="plan-summary"></div>
+                        <div id="weekly-plan" class="diet-plan"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- TRANSLATIONS (완전한 12개 언어) ---
+    const translations = {
+        "ko": {
+            "langCode": "ko", "dir": "ltr",
+            "pageTitle": "BMI 계산기 - 체중 관리 및 다이어트 플랜",
+            "metaDescription": "정확한 BMI 계산, 적정 체중, 칼로리 계산, 개인 맞춤 다이어트 플랜. 12개 언어 지원하는 무료 건강 관리 도구.",
+            "metaKeywords": "BMI 계산기, 체중 관리, 다이어트 플랜, 칼로리 계산, 적정 체중",
+            "headerTitle": "BMI 계산기", "headerSubtitle": "체중 관리 및 다이어트 플랜",
+            "bmiTab": "BMI 계산", "caloriesTab": "일일 필요 칼로리", "planTab": "다이어트 플랜",
+            "metric": "미터법 (kg/cm)", "imperial": "야드파운드법 (lbs/ft)",
+            "heightLabel": "키", "weightLabel": "체중", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "cm", "kgUnit": "kg", "calculateBMI": "BMI 계산하기",
+            "healthyRange": "건강한 체중 범위", "recommendations": "맞춤 권장사항",
+            "ageLabel": "나이", "genderLabel": "성별", "male": "남성", "female": "여성",
+            "activityLabel": "활동 수준", "sedentary": "거의 운동 안 함", "light": "가벼운 운동 (주 1-3회)",
+            "moderate": "보통 운동 (주 3-5회)", "active": "활발한 운동 (주 6-7회)", "veryActive": "매우 활발한 운동",
+            "calculateCalories": "일일 칼로리 계산", "dailyCalories": "일일 필요 칼로리", "caloriesPerDay": "칼로리/일",
+            "currentWeight": "현재 체중", "targetWeight": "목표 체중", "timeframe": "목표 기간 (주)",
+            "generatePlan": "다이어트 플랜 생성", "personalizedPlan": "개인 맞춤 다이어트 플랜",
+            "underweight": "저체중", "normal": "정상 체중", "overweight": "과체중", "obese": "비만",
+            "basalMetabolicRate": "기초대사율 (BMR)", "weightLossCal": "체중 감량 (-500 칼로리)", "weightGainCal": "체중 증가 (+500 칼로리)", "calories": "칼로리",
+            "weightLossPlan": "체중 감량 플랜", "weightGainPlan": "체중 증가 플랜", "goal": "목표", "lose": "감량", "gain": "증가",
+            "weeklyTarget": "주간 목표", "dailyCalorieAdjustment": "일일 칼로리 조정", "timeline": "기간", "weeks": "주", "perWeek": "주당", "week": "주차",
+            "errorInvalidHeightWeight": "유효한 키와 체중 값을 입력해주세요.", "errorFillAllFields": "모든 필드를 유효한 값으로 채워주세요.", "errorMinTimeframe": "유효한 값을 입력해주세요. 최소 기간은 4주입니다.",
+            "recUnderweight1": "건강한 음식으로 칼로리 섭취 늘리기", "recUnderweight2": "단백질이 풍부한 음식에 집중", "recUnderweight3": "근력 운동 고려", "recUnderweight4": "의료진과 상담",
+            "recNormal1": "현재의 건강한 습관 유지", "recNormal2": "규칙적인 신체 활동 지속", "recNormal3": "균형 잡힌 영양 식단 섭취", "recNormal4": "정기적인 체중 모니터링",
+            "recOverweight1": "적당한 칼로리 부족 상태 만들기", "recOverweight2": "신체 활동 늘리기", "recOverweight3": "자연식품에 집중", "recOverweight4": "분량 조절 고려",
+            "recObese1": "의료 전문가와 상담", "recObese2": "체계적인 체중 감량 계획 수립", "recObese3": "저강도 운동으로 시작", "recObese4": "영양 상담 고려",
+            "nutritionFoundation": "영양 기초", "exerciseRoutine": "운동 루틴", "hydrationFocus": "수분 섭취 집중", "sleepOptimization": "수면 최적화",
+            "stressManagement": "스트레스 관리", "portionControl": "분량 조절", "mealTiming": "식사 시간", "progressReview": "진행 상황 검토",
+            "tip1_1": "식단 기록하기", "tip1_2": "매일 30분 걷기", "tip1_3": "식사 전 물 마시기", "tip2_1": "주 2회 근력 운동 추가", "tip2_2": "단백질 섭취 늘리기", "tip2_3": "식사 미리 준비하기",
+            "tip3_1": "수분 섭취에 집중 (8잔 이상)", "tip3_2": "간헐적 단식 시도", "tip3_3": "모든 식사에 채소 추가", "tip4_1": "7-8시간 수면 우선순위", "tip4_2": "스트레스 해소 연습", "tip4_3": "진행상황 사진 측정",
+            "tip5_1": "명상으로 스트레스 관리", "tip5_2": "NEAT 활동 늘리기", "tip5_3": "치팅 밀(하루가 아닌) 계획", "tip6_1": "마음챙김 식사 연습", "tip6_2": "음식 분량 조절", "tip6_3": "새로운 건강 레시피 시도",
+            "tip7_1": "식사 시간 최적화", "tip7_2": "운동 강도 높이기", "tip7_3": "주말에도 일관성 유지", "tip8_1": "계획 검토 및 조정", "tip8_2": "작은 성취 축하하기", "tip8_3": "유지 단계 계획",
+            "gainTip1_1": "식사 빈도 늘리기", "gainTip1_2": "건강한 지방 추가", "gainTip1_3": "근력 운동 시작", "gainTip2_1": "단백질 쉐이크 추가", "gainTip2_2": "복합 운동에 집중", "gainTip2_3": "칼로리 섭취량 추적",
+            "gainTip3_1": "식사 전 물 피하기", "gainTip3_2": "점진적 과부하 훈련", "gainTip3_3": "견과류와 씨앗 추가", "gainTip4_1": "회복을 위한 수면 우선", "gainTip4_2": "스트레스 수준 관리", "gainTip4_3": "진행상황 사진 촬영",
+            "gainTip5_1": "점진적으로 더 많이 먹기", "gainTip5_2": "근육 형성에 집중", "gainTip5_3": "일관성 유지", "gainTip6_1": "칼로리 밀도 높은 음식 추가", "gainTip6_2": "훈련량 증가", "gainTip6_3": "균형 잡힌 식사 계획",
+            "gainTip7_1": "운동 전후 영양 최적화", "gainTip7_2": "근력 증가 추적", "gainTip7_3": "동기 부여 유지", "gainTip8_1": "진행상황 검토 및 조정", "gainTip8_2": "장기 증가 계획", "gainTip8_3": "성취 축하"
+        },
+        "en": {
+            "langCode": "en", "dir": "ltr",
+            "pageTitle": "BMI Calculator - Weight Management & Diet Plan",
+            "metaDescription": "Calculate BMI, healthy weight, daily calories, and get personalized diet plans. Free health management tool supporting 12 languages.",
+            "metaKeywords": "BMI calculator, weight management, diet plan, calorie calculator, healthy weight",
+            "headerTitle": "BMI Calculator", "headerSubtitle": "Weight Management & Diet Plan",
+            "bmiTab": "BMI Calculator", "caloriesTab": "Daily Calorie Needs", "planTab": "Diet Plan",
+            "metric": "Metric (kg/cm)", "imperial": "Imperial (lbs/ft)",
+            "heightLabel": "Height", "weightLabel": "Weight", "heightPlaceholder": "170", "weightPlaceholder": "155",
+            "cmUnit": "cm", "kgUnit": "kg", "calculateBMI": "Calculate BMI",
+            "healthyRange": "Healthy Weight Range", "recommendations": "Recommendations",
+            "ageLabel": "Age", "genderLabel": "Gender", "male": "Male", "female": "Female",
+            "activityLabel": "Activity Level", "sedentary": "Sedentary (little/no exercise)", "light": "Light (1-3 days/week)",
+            "moderate": "Moderate (3-5 days/week)", "active": "Active (6-7 days/week)", "veryActive": "Very Active (intense exercise)",
+            "calculateCalories": "Calculate Daily Calories", "dailyCalories": "Daily Calorie Needs", "caloriesPerDay": "calories/day",
+            "currentWeight": "Current Weight", "targetWeight": "Target Weight", "timeframe": "Timeframe (weeks)",
+            "generatePlan": "Generate Diet Plan", "personalizedPlan": "Personalized Diet Plan",
+            "underweight": "Underweight", "normal": "Normal Weight", "overweight": "Overweight", "obese": "Obese",
+            "basalMetabolicRate": "Basal Metabolic Rate (BMR)", "weightLossCal": "Weight Loss (-500 cal)", "weightGainCal": "Weight Gain (+500 cal)", "calories": "calories",
+            "weightLossPlan": "Weight Loss Plan", "weightGainPlan": "Weight Gain Plan", "goal": "Goal", "lose": "Lose", "gain": "Gain",
+            "weeklyTarget": "Weekly Target", "dailyCalorieAdjustment": "Daily Calorie Adjustment", "timeline": "Timeline", "weeks": "weeks", "perWeek": "per week", "week": "Week",
+            "errorInvalidHeightWeight": "Please enter valid height and weight values.", "errorFillAllFields": "Please fill in all fields with valid values.", "errorMinTimeframe": "Please enter valid values. Minimum timeframe is 4 weeks.",
+            "recUnderweight1": "Increase caloric intake with healthy foods", "recUnderweight2": "Focus on protein-rich foods", "recUnderweight3": "Consider strength training exercises", "recUnderweight4": "Consult a healthcare provider",
+            "recNormal1": "Maintain current healthy habits", "recNormal2": "Continue regular physical activity", "recNormal3": "Eat a balanced, nutritious diet", "recNormal4": "Monitor weight regularly",
+            "recOverweight1": "Create a moderate caloric deficit", "recOverweight2": "Increase physical activity", "recOverweight3": "Focus on whole foods", "recOverweight4": "Consider portion control",
+            "recObese1": "Consult healthcare professionals", "recObese2": "Create a structured weight loss plan", "recObese3": "Start with low-impact exercises", "recObese4": "Consider nutritional counseling",
+            "nutritionFoundation": "Nutrition Foundation", "exerciseRoutine": "Exercise Routine", "hydrationFocus": "Hydration Focus", "sleepOptimization": "Sleep Optimization",
+            "stressManagement": "Stress Management", "portionControl": "Portion Control", "mealTiming": "Meal Timing", "progressReview": "Progress Review",
+            "tip1_1": "Track your food intake", "tip1_2": "Start with 30min daily walks", "tip1_3": "Drink water before meals", "tip2_1": "Add strength training 2x/week", "tip2_2": "Increase protein intake", "tip2_3": "Meal prep for success",
+            "tip3_1": "Focus on hydration (8+ glasses)", "tip3_2": "Try intermittent fasting", "tip3_3": "Add vegetables to every meal", "tip4_1": "Prioritize 7-8 hours sleep", "tip4_2": "Practice stress reduction", "tip4_3": "Measure progress photos",
+            "tip5_1": "Manage stress with meditation", "tip5_2": "Increase NEAT activities", "tip5_3": "Plan cheat meal (not day)", "tip6_1": "Practice mindful eating", "tip6_2": "Adjust portion sizes", "tip6_3": "Try new healthy recipes",
+            "tip7_1": "Optimize meal timing", "tip7_2": "Increase workout intensity", "tip7_3": "Stay consistent on weekends", "tip8_1": "Review and adjust plan", "tip8_2": "Celebrate small wins", "tip8_3": "Plan for maintenance phase",
+            "gainTip1_1": "Increase meal frequency", "gainTip1_2": "Add healthy fats to meals", "gainTip1_3": "Start strength training", "gainTip2_1": "Add protein shakes", "gainTip2_2": "Focus on compound exercises", "gainTip2_3": "Track caloric intake",
+            "gainTip3_1": "Stay hydrated but not before meals", "gainTip3_2": "Progressive overload training", "gainTip3_3": "Add nuts and seeds", "gainTip4_1": "Prioritize sleep for recovery", "gainTip4_2": "Manage stress levels", "gainTip4_3": "Take progress photos",
+            "gainTip5_1": "Eat larger portions gradually", "gainTip5_2": "Focus on muscle building", "gainTip5_3": "Stay consistent", "gainTip6_1": "Add calorie-dense foods", "gainTip6_2": "Increase training volume", "gainTip6_3": "Plan balanced meals",
+            "gainTip7_1": "Optimize pre/post workout nutrition", "gainTip7_2": "Track strength gains", "gainTip7_3": "Stay motivated", "gainTip8_1": "Review progress and adjust", "gainTip8_2": "Plan for long-term gains", "gainTip8_3": "Celebrate achievements"
+        },
+        "zh": {
+            "langCode": "zh-CN", "dir": "ltr",
+            "pageTitle": "BMI计算器 - 体重管理和饮食计划",
+            "metaDescription": "计算BMI、理想体重、每日卡路里，获得个性化饮食计划。支持12种语言的免费健康管理工具。",
+            "metaKeywords": "BMI计算器, 体重管理, 饮食计划, 卡路里计算器, 理想体重",
+            "headerTitle": "BMI计算器", "headerSubtitle": "体重管理和饮食计划",
+            "bmiTab": "BMI计算", "caloriesTab": "每日卡路里需求", "planTab": "饮食计划",
+            "metric": "公制 (kg/cm)", "imperial": "英制 (lbs/ft)",
+            "heightLabel": "身高", "weightLabel": "体重", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "厘米", "kgUnit": "公斤", "calculateBMI": "计算BMI",
+            "healthyRange": "健康体重范围", "recommendations": "建议",
+            "ageLabel": "年龄", "genderLabel": "性别", "male": "男性", "female": "女性",
+            "activityLabel": "活动水平", "sedentary": "久坐不动", "light": "轻度运动", "moderate": "中度运动", "active": "积极运动", "veryActive": "非常积极",
+            "calculateCalories": "计算每日卡路里", "dailyCalories": "每日卡路里需求", "caloriesPerDay": "卡路里/天",
+            "currentWeight": "当前体重", "targetWeight": "目标体重", "timeframe": "时间框架（周）",
+            "generatePlan": "生成饮食计划", "personalizedPlan": "个性化饮食计划",
+            "underweight": "体重不足", "normal": "正常体重", "overweight": "超重", "obese": "肥胖",
+            "basalMetabolicRate": "基础代谢率 (BMR)", "weightLossCal": "减重 (-500 卡路里)", "weightGainCal": "增重 (+500 卡路里)", "calories": "卡路里",
+            "weightLossPlan": "减重计划", "weightGainPlan": "增重计划", "goal": "目标", "lose": "减少", "gain": "增加",
+            "weeklyTarget": "每周目标", "dailyCalorieAdjustment": "每日卡路里调整", "timeline": "时间线", "weeks": "周", "perWeek": "每周", "week": "第",
+            "errorInvalidHeightWeight": "请输入有效的身高和体重值。", "errorFillAllFields": "请填写所有字段的有效值。", "errorMinTimeframe": "请输入有效值。最小时间框架为4周。",
+            "recUnderweight1": "增加健康食物的热量摄入", "recUnderweight2": "专注于富含蛋白质的食物", "recUnderweight3": "考虑力量训练", "recUnderweight4": "咨询医疗保健提供者",
+            "recNormal1": "保持当前的健康习惯", "recNormal2": "继续定期身体活动", "recNormal3": "摄入均衡营养的饮食", "recNormal4": "定期监测体重",
+            "recOverweight1": "创造适度的热量不足", "recOverweight2": "增加身体活动", "recOverweight3": "专注于全食物", "recOverweight4": "考虑分量控制",
+            "recObese1": "咨询医疗保健专业人员", "recObese2": "制定结构化的减重计划", "recObese3": "从低强度运动开始", "recObese4": "考虑营养咨询",
+            "nutritionFoundation": "营养基础", "exerciseRoutine": "运动例程", "hydrationFocus": "水分补充重点", "sleepOptimization": "睡眠优化",
+            "stressManagement": "压力管理", "portionControl": "分量控制", "mealTiming": "进餐时间", "progressReview": "进度回顾",
+            "tip1_1": "记录食物摄入", "tip1_2": "开始每天30分钟步行", "tip1_3": "餐前喝水", "tip2_1": "每周增加2次力量训练", "tip2_2": "增加蛋白质摄入", "tip2_3": "准备成功的膳食",
+            "tip3_1": "专注于水分补充（8杯以上）", "tip3_2": "尝试间歇性禁食", "tip3_3": "每餐添加蔬菜", "tip4_1": "优先考虑7-8小时睡眠", "tip4_2": "练习减压", "tip4_3": "测量进度照片",
+            "tip5_1": "通过冥想管理压力", "tip5_2": "增加NEAT活动", "tip5_3": "计划作弊餐（不是一天）", "tip6_1": "练习正念饮食", "tip6_2": "调整分量大小", "tip6_3": "尝试新的健康食谱",
+            "tip7_1": "优化用餐时间", "tip7_2": "增加锻炼强度", "tip7_3": "周末保持一致", "tip8_1": "审查和调整计划", "tip8_2": "庆祝小胜利", "tip8_3": "计划维持阶段",
+            "gainTip1_1": "增加用餐频率", "gainTip1_2": "添加健康脂肪到膳食", "gainTip1_3": "开始力量训练", "gainTip2_1": "添加蛋白质奶昔", "gainTip2_2": "专注于复合运动", "gainTip2_3": "跟踪热量摄入",
+            "gainTip3_1": "保持水分但不要在餐前", "gainTip3_2": "渐进式超负荷训练", "gainTip3_3": "添加坚果和种子", "gainTip4_1": "优先考虑睡眠恢复", "gainTip4_2": "管理压力水平", "gainTip4_3": "拍摄进度照片",
+            "gainTip5_1": "逐渐吃更大分量", "gainTip5_2": "专注于肌肉建设", "gainTip5_3": "保持一致", "gainTip6_1": "添加热量密集食物", "gainTip6_2": "增加训练量", "gainTip6_3": "计划均衡膳食",
+            "gainTip7_1": "优化运动前后营养", "gainTip7_2": "跟踪力量增长", "gainTip7_3": "保持动力", "gainTip8_1": "审查进度并调整", "gainTip8_2": "长期增长计划", "gainTip8_3": "庆祝成就"
+        },
+        "es": {
+            "langCode": "es", "dir": "ltr",
+            "pageTitle": "Calculadora de IMC - Gestión de Peso y Plan de Dieta",
+            "metaDescription": "Calcula IMC, peso saludable, calorías diarias y obtén planes de dieta personalizados. Herramienta gratuita de gestión de salud en 12 idiomas.",
+            "metaKeywords": "calculadora IMC, gestión peso, plan dieta, calculadora calorías, peso saludable",
+            "headerTitle": "Calculadora de IMC", "headerSubtitle": "Gestión de Peso y Plan de Dieta",
+            "bmiTab": "Calculadora IMC", "caloriesTab": "Necesidades Calóricas Diarias", "planTab": "Plan de Dieta",
+            "metric": "Métrico (kg/cm)", "imperial": "Imperial (lbs/ft)",
+            "heightLabel": "Altura", "weightLabel": "Peso", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "cm", "kgUnit": "kg", "calculateBMI": "Calcular IMC",
+            "healthyRange": "Rango de Peso Saludable", "recommendations": "Recomendaciones",
+            "ageLabel": "Edad", "genderLabel": "Género", "male": "Masculino", "female": "Femenino",
+            "activityLabel": "Nivel de Actividad", "sedentary": "Sedentario", "light": "Ligero", "moderate": "Moderado", "active": "Activo", "veryActive": "Muy Activo",
+            "calculateCalories": "Calcular Calorías Diarias", "dailyCalories": "Necesidades Calóricas Diarias", "caloriesPerDay": "calorías/día",
+            "currentWeight": "Peso Actual", "targetWeight": "Peso Objetivo", "timeframe": "Tiempo (semanas)",
+            "generatePlan": "Generar Plan de Dieta", "personalizedPlan": "Plan de Dieta Personalizado",
+            "underweight": "Bajo peso", "normal": "Peso normal", "overweight": "Sobrepeso", "obese": "Obesidad",
+            "basalMetabolicRate": "Tasa Metabólica Basal (TMB)", "weightLossCal": "Pérdida de peso (-500 cal)", "weightGainCal": "Aumento de peso (+500 cal)", "calories": "calorías",
+            "weightLossPlan": "Plan de Pérdida de Peso", "weightGainPlan": "Plan de Aumento de Peso", "goal": "Objetivo", "lose": "Perder", "gain": "Ganar",
+            "weeklyTarget": "Objetivo Semanal", "dailyCalorieAdjustment": "Ajuste Calórico Diario", "timeline": "Cronograma", "weeks": "semanas", "perWeek": "por semana", "week": "Semana",
+            "errorInvalidHeightWeight": "Por favor, ingrese valores válidos de altura y peso.", "errorFillAllFields": "Por favor, complete todos los campos con valores válidos.", "errorMinTimeframe": "Por favor, ingrese valores válidos. El tiempo mínimo es de 4 semanas.",
+            "recUnderweight1": "Aumentar la ingesta calórica con alimentos saludables", "recUnderweight2": "Enfocarse en alimentos ricos en proteínas", "recUnderweight3": "Considerar ejercicios de fuerza", "recUnderweight4": "Consultar un proveedor de atención médica",
+            "recNormal1": "Mantener hábitos saludables actuales", "recNormal2": "Continuar actividad física regular", "recNormal3": "Comer una dieta equilibrada y nutritiva", "recNormal4": "Monitorear el peso regularmente",
+            "recOverweight1": "Crear un déficit calórico moderado", "recOverweight2": "Aumentar la actividad física", "recOverweight3": "Enfocarse en alimentos integrales", "recOverweight4": "Considerar el control de porciones",
+            "recObese1": "Consultar profesionales de la salud", "recObese2": "Crear un plan estructurado de pérdida de peso", "recObese3": "Comenzar con ejercicios de bajo impacto", "recObese4": "Considerar asesoramiento nutricional",
+            "nutritionFoundation": "Base Nutricional", "exerciseRoutine": "Rutina de Ejercicio", "hydrationFocus": "Enfoque en Hidratación", "sleepOptimization": "Optimización del Sueño",
+            "stressManagement": "Manejo del Estrés", "portionControl": "Control de Porciones", "mealTiming": "Horario de Comidas", "progressReview": "Revisión del Progreso",
+            "tip1_1": "Rastrear ingesta de alimentos", "tip1_2": "Comenzar con caminatas diarias de 30min", "tip1_3": "Beber agua antes de las comidas", "tip2_1": "Agregar entrenamiento de fuerza 2x/semana", "tip2_2": "Aumentar ingesta de proteínas", "tip2_3": "Preparar comidas para el éxito",
+            "tip3_1": "Enfocarse en hidratación (8+ vasos)", "tip3_2": "Probar ayuno intermitente", "tip3_3": "Agregar vegetales a cada comida", "tip4_1": "Priorizar 7-8 horas de sueño", "tip4_2": "Practicar reducción de estrés", "tip4_3": "Medir fotos de progreso",
+            "tip5_1": "Manejar estrés con meditación", "tip5_2": "Aumentar actividades NEAT", "tip5_3": "Planear comida trampa (no día)", "tip6_1": "Practicar alimentación consciente", "tip6_2": "Ajustar tamaños de porciones", "tip6_3": "Probar nuevas recetas saludables",
+            "tip7_1": "Optimizar horario de comidas", "tip7_2": "Aumentar intensidad del entrenamiento", "tip7_3": "Mantenerse consistente los fines de semana", "tip8_1": "Revisar y ajustar plan", "tip8_2": "Celebrar pequeñas victorias", "tip8_3": "Planear fase de mantenimiento",
+            "gainTip1_1": "Aumentar frecuencia de comidas", "gainTip1_2": "Agregar grasas saludables a comidas", "gainTip1_3": "Comenzar entrenamiento de fuerza", "gainTip2_1": "Agregar batidos de proteína", "gainTip2_2": "Enfocarse en ejercicios compuestos", "gainTip2_3": "Rastrear ingesta calórica",
+            "gainTip3_1": "Mantenerse hidratado pero no antes de comidas", "gainTip3_2": "Entrenamiento de sobrecarga progresiva", "gainTip3_3": "Agregar nueces y semillas", "gainTip4_1": "Priorizar sueño para recuperación", "gainTip4_2": "Manejar niveles de estrés", "gainTip4_3": "Tomar fotos de progreso",
+            "gainTip5_1": "Comer porciones más grandes gradualmente", "gainTip5_2": "Enfocarse en construcción muscular", "gainTip5_3": "Mantenerse consistente", "gainTip6_1": "Agregar alimentos densos en calorías", "gainTip6_2": "Aumentar volumen de entrenamiento", "gainTip6_3": "Planear comidas equilibradas",
+            "gainTip7_1": "Optimizar nutrición pre/post entrenamiento", "gainTip7_2": "Rastrear ganancias de fuerza", "gainTip7_3": "Mantenerse motivado", "gainTip8_1": "Revisar progreso y ajustar", "gainTip8_2": "Planear ganancias a largo plazo", "gainTip8_3": "Celebrar logros"
+        },
+        "ar": {
+            "langCode": "ar", "dir": "rtl",
+            "pageTitle": "حاسبة مؤشر كتلة الجسم - إدارة الوزن وخطة النظام الغذائي",
+            "metaDescription": "احسب مؤشر كتلة الجسم والوزن الصحي والسعرات الحرارية اليومية واحصل على خطط غذائية شخصية. أداة إدارة صحية مجانية بـ12 لغة.",
+            "metaKeywords": "حاسبة مؤشر كتلة الجسم, إدارة الوزن, خطة النظام الغذائي, حاسبة السعرات الحرارية, الوزن الصحي",
+            "headerTitle": "حاسبة مؤشر كتلة الجسم", "headerSubtitle": "إدارة الوزن وخطة النظام الغذائي",
+            "bmiTab": "حاسبة مؤشر كتلة الجسم", "caloriesTab": "احتياجات السعرات الحرارية اليومية", "planTab": "خطة النظام الغذائي",
+            "metric": "متري (كغ/سم)", "imperial": "إمبراطوري (رطل/قدم)",
+            "heightLabel": "الطول", "weightLabel": "الوزن", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "سم", "kgUnit": "كغ", "calculateBMI": "احسب مؤشر كتلة الجسم",
+            "healthyRange": "نطاق الوزن الصحي", "recommendations": "التوصيات",
+            "ageLabel": "العمر", "genderLabel": "الجنس", "male": "ذكر", "female": "أنثى",
+            "activityLabel": "مستوى النشاط", "sedentary": "خامل", "light": "نشاط خفيف", "moderate": "نشاط معتدل", "active": "نشط", "veryActive": "نشط جداً",
+            "calculateCalories": "احسب السعرات الحرارية اليومية", "dailyCalories": "احتياجات السعرات الحرارية اليومية", "caloriesPerDay": "سعرة حرارية/يوم",
+            "currentWeight": "الوزن الحالي", "targetWeight": "الوزن المستهدف", "timeframe": "الإطار الزمني (أسابيع)",
+            "generatePlan": "إنشاء خطة النظام الغذائي", "personalizedPlan": "خطة النظام الغذائي الشخصية",
+            "underweight": "نقص الوزن", "normal": "وزن طبيعي", "overweight": "زيادة الوزن", "obese": "السمنة",
+            "basalMetabolicRate": "معدل الأيض الأساسي", "weightLossCal": "فقدان الوزن (-500 سعرة)", "weightGainCal": "زيادة الوزن (+500 سعرة)", "calories": "سعرة حرارية",
+            "weightLossPlan": "خطة إنقاص الوزن", "weightGainPlan": "خطة زيادة الوزن", "goal": "الهدف", "lose": "فقدان", "gain": "زيادة",
+            "weeklyTarget": "الهدف الأسبوعي", "dailyCalorieAdjustment": "تعديل السعرات اليومية", "timeline": "الجدول الزمني", "weeks": "أسابيع", "perWeek": "في الأسبوع", "week": "الأسبوع",
+            "errorInvalidHeightWeight": "يرجى إدخال قيم صحيحة للطول والوزن.", "errorFillAllFields": "يرجى ملء جميع الحقول بقيم صحيحة.", "errorMinTimeframe": "يرجى إدخال قيم صحيحة. الحد الأدنى للإطار الزمني هو 4 أسابيع.",
+            "recUnderweight1": "زيادة السعرات الحرارية بالأطعمة الصحية", "recUnderweight2": "التركيز على الأطعمة الغنية بالبروتين", "recUnderweight3": "النظر في تمارين القوة", "recUnderweight4": "استشارة مقدم الرعاية الصحية",
+            "recNormal1": "الحفاظ على العادات الصحية الحالية", "recNormal2": "مواصلة النشاط البدني المنتظم", "recNormal3": "تناول نظام غذائي متوازن ومغذي", "recNormal4": "مراقبة الوزن بانتظام",
+            "recOverweight1": "خلق عجز معتدل في السعرات الحرارية", "recOverweight2": "زيادة النشاط البدني", "recOverweight3": "التركيز على الأطعمة الكاملة", "recOverweight4": "النظر في التحكم في الحصص",
+            "recObese1": "استشارة المهنيين الصحيين", "recObese2": "إنشاء خطة منظمة لفقدان الوزن", "recObese3": "البدء بتمارين منخفضة التأثير", "recObese4": "النظر في الاستشارة التغذوية",
+            "nutritionFoundation": "أساس التغذية", "exerciseRoutine": "روتين التمرين", "hydrationFocus": "التركيز على الترطيب", "sleepOptimization": "تحسين النوم",
+            "stressManagement": "إدارة الإجهاد", "portionControl": "التحكم في الحصص", "mealTiming": "توقيت الوجبات", "progressReview": "مراجعة التقدم",
+            "tip1_1": "تتبع تناول الطعام", "tip1_2": "البدء بالمشي اليومي لمدة 30 دقيقة", "tip1_3": "شرب الماء قبل الوجبات", "tip2_1": "إضافة تدريب القوة مرتين/أسبوعياً", "tip2_2": "زيادة تناول البروتين", "tip2_3": "تحضير الوجبات للنجاح",
+            "tip3_1": "التركيز على الترطيب (8+ أكواب)", "tip3_2": "تجربة الصيام المتقطع", "tip3_3": "إضافة الخضار لكل وجبة", "tip4_1": "إعطاء الأولوية للنوم 7-8 ساعات", "tip4_2": "ممارسة تقليل التوتر", "tip4_3": "قياس صور التقدم",
+            "tip5_1": "إدارة التوتر بالتأمل", "tip5_2": "زيادة أنشطة NEAT", "tip5_3": "تخطيط وجبة الغش (وليس يوماً)", "tip6_1": "ممارسة الأكل الواعي", "tip6_2": "تعديل أحجام الحصص", "tip6_3": "تجربة وصفات صحية جديدة",
+            "tip7_1": "تحسين توقيت الوجبات", "tip7_2": "زيادة شدة التمرين", "tip7_3": "البقاء ثابتاً في عطلات الأسبوع", "tip8_1": "مراجعة وتعديل الخطة", "tip8_2": "الاحتفال بالانتصارات الصغيرة", "tip8_3": "التخطيط لمرحلة الصيانة",
+            "gainTip1_1": "زيادة تكرار الوجبات", "gainTip1_2": "إضافة دهون صحية للوجبات", "gainTip1_3": "بدء تدريب القوة", "gainTip2_1": "إضافة مخفوقات البروتين", "gainTip2_2": "التركيز على التمارين المركبة", "gainTip2_3": "تتبع تناول السعرات الحرارية",
+            "gainTip3_1": "البقاء رطباً ولكن ليس قبل الوجبات", "gainTip3_2": "تدريب الحمل الزائد التدريجي", "gainTip3_3": "إضافة المكسرات والبذور", "gainTip4_1": "إعطاء الأولوية للنوم للتعافي", "gainTip4_2": "إدارة مستويات التوتر", "gainTip4_3": "التقاط صور التقدم",
+            "gainTip5_1": "تناول حصص أكبر تدريجياً", "gainTip5_2": "التركيز على بناء العضلات", "gainTip5_3": "البقاء ثابتاً", "gainTip6_1": "إضافة أطعمة كثيفة السعرات", "gainTip6_2": "زيادة حجم التدريب", "gainTip6_3": "تخطيط وجبات متوازنة",
+            "gainTip7_1": "تحسين التغذية قبل/بعد التمرين", "gainTip7_2": "تتبع مكاسب القوة", "gainTip7_3": "البقاء متحفزاً", "gainTip8_1": "مراجعة التقدم والتعديل", "gainTip8_2": "التخطيط للمكاسب طويلة المدى", "gainTip8_3": "الاحتفال بالإنجازات"
+        },
+        "pt": {
+            "langCode": "pt-BR", "dir": "ltr",
+            "pageTitle": "Calculadora de IMC - Gestão de Peso e Plano de Dieta",
+            "metaDescription": "Calcule IMC, peso saudável, calorias diárias e obtenha planos de dieta personalizados. Ferramenta gratuita de gestão de saúde em 12 idiomas.",
+            "metaKeywords": "calculadora IMC, gestão peso, plano dieta, calculadora calorias, peso saudável",
+            "headerTitle": "Calculadora de IMC", "headerSubtitle": "Gestão de Peso e Plano de Dieta",
+            "bmiTab": "Calculadora IMC", "caloriesTab": "Necessidades Calóricas Diárias", "planTab": "Plano de Dieta",
+            "metric": "Métrico (kg/cm)", "imperial": "Imperial (lbs/ft)",
+            "heightLabel": "Altura", "weightLabel": "Peso", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "cm", "kgUnit": "kg", "calculateBMI": "Calcular IMC",
+            "healthyRange": "Faixa de Peso Saudável", "recommendations": "Recomendações",
+            "ageLabel": "Idade", "genderLabel": "Gênero", "male": "Masculino", "female": "Feminino",
+            "activityLabel": "Nível de Atividade", "sedentary": "Sedentário", "light": "Leve", "moderate": "Moderado", "active": "Ativo", "veryActive": "Muito Ativo",
+            "calculateCalories": "Calcular Calorias Diárias", "dailyCalories": "Necessidades Calóricas Diárias", "caloriesPerDay": "calorias/dia",
+            "currentWeight": "Peso Atual", "targetWeight": "Peso Alvo", "timeframe": "Prazo (semanas)",
+            "generatePlan": "Gerar Plano de Dieta", "personalizedPlan": "Plano de Dieta Personalizado",
+            "underweight": "Abaixo do peso", "normal": "Peso normal", "overweight": "Sobrepeso", "obese": "Obesidade",
+            "basalMetabolicRate": "Taxa Metabólica Basal (TMB)", "weightLossCal": "Perda de peso (-500 cal)", "weightGainCal": "Ganho de peso (+500 cal)", "calories": "calorias",
+            "weightLossPlan": "Plano de Perda de Peso", "weightGainPlan": "Plano de Ganho de Peso", "goal": "Objetivo", "lose": "Perder", "gain": "Ganhar",
+            "weeklyTarget": "Meta Semanal", "dailyCalorieAdjustment": "Ajuste Calórico Diário", "timeline": "Cronograma", "weeks": "semanas", "perWeek": "por semana", "week": "Semana",
+            "errorInvalidHeightWeight": "Por favor, insira valores válidos de altura e peso.", "errorFillAllFields": "Por favor, preencha todos os campos com valores válidos.", "errorMinTimeframe": "Por favor, insira valores válidos. O prazo mínimo é de 4 semanas.",
+            "recUnderweight1": "Aumentar a ingestão calórica com alimentos saudáveis", "recUnderweight2": "Focar em alimentos ricos em proteínas", "recUnderweight3": "Considerar exercícios de força", "recUnderweight4": "Consultar um profissional de saúde",
+            "recNormal1": "Manter hábitos saudáveis atuais", "recNormal2": "Continuar atividade física regular", "recNormal3": "Comer uma dieta equilibrada e nutritiva", "recNormal4": "Monitorar o peso regularmente",
+            "recOverweight1": "Criar um déficit calórico moderado", "recOverweight2": "Aumentar a atividade física", "recOverweight3": "Focar em alimentos integrais", "recOverweight4": "Considerar controle de porções",
+            "recObese1": "Consultar profissionais de saúde", "recObese2": "Criar um plano estruturado de perda de peso", "recObese3": "Começar com exercícios de baixo impacto", "recObese4": "Considerar aconselhamento nutricional",
+            "nutritionFoundation": "Base Nutricional", "exerciseRoutine": "Rotina de Exercícios", "hydrationFocus": "Foco na Hidratação", "sleepOptimization": "Otimização do Sono",
+            "stressManagement": "Gerenciamento do Estresse", "portionControl": "Controle de Porções", "mealTiming": "Horário das Refeições", "progressReview": "Revisão do Progresso",
+            "tip1_1": "Rastrear ingestão de alimentos", "tip1_2": "Começar com caminhadas diárias de 30min", "tip1_3": "Beber água antes das refeições", "tip2_1": "Adicionar treinamento de força 2x/semana", "tip2_2": "Aumentar ingestão de proteínas", "tip2_3": "Preparar refeições para o sucesso",
+            "tip3_1": "Focar na hidratação (8+ copos)", "tip3_2": "Tentar jejum intermitente", "tip3_3": "Adicionar vegetais a cada refeição", "tip4_1": "Priorizar 7-8 horas de sono", "tip4_2": "Praticar redução de estresse", "tip4_3": "Medir fotos de progresso",
+            "tip5_1": "Gerenciar estresse com meditação", "tip5_2": "Aumentar atividades NEAT", "tip5_3": "Planejar refeição livre (não dia)", "tip6_1": "Praticar alimentação consciente", "tip6_2": "Ajustar tamanhos de porções", "tip6_3": "Tentar novas receitas saudáveis",
+            "tip7_1": "Otimizar horário das refeições", "tip7_2": "Aumentar intensidade do treino", "tip7_3": "Manter consistência nos fins de semana", "tip8_1": "Revisar e ajustar plano", "tip8_2": "Celebrar pequenas vitórias", "tip8_3": "Planejar fase de manutenção",
+            "gainTip1_1": "Aumentar frequência das refeições", "gainTip1_2": "Adicionar gorduras saudáveis às refeições", "gainTip1_3": "Começar treinamento de força", "gainTip2_1": "Adicionar shakes de proteína", "gainTip2_2": "Focar em exercícios compostos", "gainTip2_3": "Rastrear ingestão calórica",
+            "gainTip3_1": "Manter-se hidratado mas não antes das refeições", "gainTip3_2": "Treinamento de sobrecarga progressiva", "gainTip3_3": "Adicionar nozes e sementes", "gainTip4_1": "Priorizar sono para recuperação", "gainTip4_2": "Gerenciar níveis de estresse", "gainTip4_3": "Tirar fotos de progresso",
+            "gainTip5_1": "Comer porções maiores gradualmente", "gainTip5_2": "Focar na construção muscular", "gainTip5_3": "Manter consistência", "gainTip6_1": "Adicionar alimentos densos em calorias", "gainTip6_2": "Aumentar volume de treinamento", "gainTip6_3": "Planejar refeições equilibradas",
+            "gainTip7_1": "Otimizar nutrição pré/pós treino", "gainTip7_2": "Rastrear ganhos de força", "gainTip7_3": "Manter motivação", "gainTip8_1": "Revisar progresso e ajustar", "gainTip8_2": "Planejar ganhos a longo prazo", "gainTip8_3": "Celebrar conquistas"
+        },
+        "hi": {
+            "langCode": "hi", "dir": "ltr",
+            "pageTitle": "BMI कैलकुलेटर - वजन प्रबंधन और आहार योजना",
+            "metaDescription": "BMI, स्वस्थ वजन, दैनिक कैलोरी की गणना करें और व्यक्तिगत आहार योजना प्राप्त करें। 12 भाषाओं में मुफ्त स्वास्थ्य प्रबंधन उपकरण।",
+            "metaKeywords": "BMI कैलकुलेटर, वजन प्रबंधन, आहार योजना, कैलोरी कैलकुलेटर, स्वस्थ वजन",
+            "headerTitle": "BMI कैलकुलेटर", "headerSubtitle": "वजन प्रबंधन और आहार योजना",
+            "bmiTab": "BMI कैलकुलेटर", "caloriesTab": "दैनिक कैलोरी आवश्यकताएं", "planTab": "आहार योजना",
+            "metric": "मेट्रिक (kg/cm)", "imperial": "इंपीरियल (lbs/ft)",
+            "heightLabel": "ऊंचाई", "weightLabel": "वजन", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "सेमी", "kgUnit": "किग्रा", "calculateBMI": "BMI की गणना करें",
+            "healthyRange": "स्वस्थ वजन सीमा", "recommendations": "सिफारिशें",
+            "ageLabel": "उम्र", "genderLabel": "लिंग", "male": "पुरुष", "female": "महिला",
+            "activityLabel": "गतिविधि स्तर", "sedentary": "निष्क्रिय", "light": "हल्की गतिविधि", "moderate": "मध्यम गतिविधि", "active": "सक्रिय", "veryActive": "बहुत सक्रिय",
+            "calculateCalories": "दैनिक कैलोरी की गणना करें", "dailyCalories": "दैनिक कैलोरी आवश्यकताएं", "caloriesPerDay": "कैलोरी/दिन",
+            "currentWeight": "वर्तमान वजन", "targetWeight": "लक्ष्य वजन", "timeframe": "समय सीमा (सप्ताह)",
+            "generatePlan": "आहार योजना बनाएं", "personalizedPlan": "व्यक्तिगत आहार योजना",
+            "underweight": "कम वजन", "normal": "सामान्य वजन", "overweight": "अधिक वजन", "obese": "मोटापा",
+            "basalMetabolicRate": "आधारभूत चयापचय दर (BMR)", "weightLossCal": "वजन घटाना (-500 कैलोरी)", "weightGainCal": "वजन बढ़ाना (+500 कैलोरी)", "calories": "कैलोरी",
+            "weightLossPlan": "वजन घटाने की योजना", "weightGainPlan": "वजन बढ़ाने की योजना", "goal": "लक्ष्य", "lose": "घटाना", "gain": "बढ़ाना",
+            "weeklyTarget": "साप्ताहिक लक्ष्य", "dailyCalorieAdjustment": "दैनिक कैलोरी समायोजन", "timeline": "समयसीमा", "weeks": "सप्ताह", "perWeek": "प्रति सप्ताह", "week": "सप्ताह",
+            "errorInvalidHeightWeight": "कृपया वैध ऊंचाई और वजन मान दर्ज करें।", "errorFillAllFields": "कृपया सभी फ़ील्ड को वैध मानों से भरें।", "errorMinTimeframe": "कृपया वैध मान दर्ज करें। न्यूनतम समय सीमा 4 सप्ताह है।",
+            "recUnderweight1": "स्वस्थ भोजन के साथ कैलोरी सेवन बढ़ाएं", "recUnderweight2": "प्रोटीन युक्त भोजन पर ध्यान दें", "recUnderweight3": "शक्ति प्रशिक्षण पर विचार करें", "recUnderweight4": "स्वास्थ्य सेवा प्रदाता से सलाह लें",
+            "recNormal1": "वर्तमान स्वस्थ आदतों को बनाए रखें", "recNormal2": "नियमित शारीरिक गतिविधि जारी रखें", "recNormal3": "संतुलित, पौष्टिक आहार लें", "recNormal4": "नियमित रूप से वजन की निगरानी करें",
+            "recOverweight1": "मध्यम कैलोरी कमी बनाएं", "recOverweight2": "शारीरिक गतिविधि बढ़ाएं", "recOverweight3": "संपूर्ण भोजन पर ध्यान दें", "recOverweight4": "भाग नियंत्रण पर विचार करें",
+            "recObese1": "स्वास्थ्य पेशेवरों से सलाह लें", "recObese2": "संरचित वजन घटाने की योजना बनाएं", "recObese3": "कम प्रभाव वाले व्यायाम से शुरू करें", "recObese4": "पोषण सलाह पर विचार करें",
+            "nutritionFoundation": "पोषण आधार", "exerciseRoutine": "व्यायाम दिनचर्या", "hydrationFocus": "हाइड्रेशन फोकस", "sleepOptimization": "नींद अनुकूलन",
+            "stressManagement": "तनाव प्रबंधन", "portionControl": "भाग नियंत्रण", "mealTiming": "भोजन का समय", "progressReview": "प्रगति समीक्षा",
+            "tip1_1": "भोजन सेवन को ट्रैक करें", "tip1_2": "30 मिनट की दैनिक सैर शुरू करें", "tip1_3": "भोजन से पहले पानी पिएं", "tip2_1": "सप्ताह में 2 बार शक्ति प्रशिक्षण जोड़ें", "tip2_2": "प्रोटीन सेवन बढ़ाएं", "tip2_3": "सफलता के लिए भोजन तैयार करें",
+            "tip3_1": "हाइड्रेशन पर ध्यान दें (8+ गिलास)", "tip3_2": "रुक-रुक कर उपवास करने का प्रयास करें", "tip3_3": "हर भोजन में सब्जियां जोड़ें", "tip4_1": "7-8 घंटे की नींद को प्राथमिकता दें", "tip4_2": "तनाव कम करने का अभ्यास करें", "tip4_3": "प्रगति तस्वीरें मापें",
+            "tip5_1": "ध्यान से तनाव प्रबंधन करें", "tip5_2": "NEAT गतिविधियां बढ़ाएं", "tip5_3": "चीट मील (दिन नहीं) की योजना बनाएं", "tip6_1": "सचेत खाने का अभ्यास करें", "tip6_2": "भाग आकार समायोजित करें", "tip6_3": "नई स्वस्थ रेसिपी आज़माएं",
+            "tip7_1": "भोजन समय अनुकूलित करें", "tip7_2": "कसरत की तीव्रता बढ़ाएं", "tip7_3": "सप्ताहांत में भी निरंतरता बनाए रखें", "tip8_1": "योजना की समीक्षा करें और समायोजित करें", "tip8_2": "छोटी जीत मनाएं", "tip8_3": "रखरखाव चरण की योजना बनाएं",
+            "gainTip1_1": "भोजन की आवृत्ति बढ़ाएं", "gainTip1_2": "भोजन में स्वस्थ वसा जोड़ें", "gainTip1_3": "शक्ति प्रशिक्षण शुरू करें", "gainTip2_1": "प्रोटीन शेक जोड़ें", "gainTip2_2": "मिश्रित व्यायाम पर ध्यान दें", "gainTip2_3": "कैलोरी सेवन को ट्रैक करें",
+            "gainTip3_1": "हाइड्रेटेड रहें लेकिन भोजन से पहले नहीं", "gainTip3_2": "प्रगतिशील अधिभार प्रशिक्षण", "gainTip3_3": "नट्स और सीड्स जोड़ें", "gainTip4_1": "रिकवरी के लिए नींद को प्राथमिकता दें", "gainTip4_2": "तनाव के स्तर को प्रबंधित करें", "gainTip4_3": "प्रगति तस्वीरें लें",
+            "gainTip5_1": "धीरे-धीरे बड़े हिस्से खाएं", "gainTip5_2": "मांसपेशी निर्माण पर ध्यान दें", "gainTip5_3": "निरंतरता बनाए रखें", "gainTip6_1": "कैलोरी-घने खाद्य पदार्थ जोड़ें", "gainTip6_2": "प्रशिक्षण मात्रा बढ़ाएं", "gainTip6_3": "संतुलित भोजन की योजना बनाएं",
+            "gainTip7_1": "कसरत पूर्व/बाद पोषण अनुकूलित करें", "gainTip7_2": "शक्ति लाभ को ट्रैक करें", "gainTip7_3": "प्रेरित रहें", "gainTip8_1": "प्रगति की समीक्षा करें और समायोजित करें", "gainTip8_2": "दीर्घकालिक लाभ की योजना बनाएं", "gainTip8_3": "उपलब्धियों का जश्न मनाएं"
+        },
+        "id": {
+            "langCode": "id", "dir": "ltr",
+            "pageTitle": "Kalkulator BMI - Manajemen Berat Badan dan Rencana Diet",
+            "metaDescription": "Hitung BMI, berat badan sehat, kalori harian dan dapatkan rencana diet personal. Alat manajemen kesehatan gratis dalam 12 bahasa.",
+            "metaKeywords": "kalkulator BMI, manajemen berat badan, rencana diet, kalkulator kalori, berat badan sehat",
+            "headerTitle": "Kalkulator BMI", "headerSubtitle": "Manajemen Berat Badan dan Rencana Diet",
+            "bmiTab": "Kalkulator BMI", "caloriesTab": "Kebutuhan Kalori Harian", "planTab": "Rencana Diet",
+            "metric": "Metrik (kg/cm)", "imperial": "Imperial (lbs/ft)",
+            "heightLabel": "Tinggi", "weightLabel": "Berat", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "cm", "kgUnit": "kg", "calculateBMI": "Hitung BMI",
+            "healthyRange": "Rentang Berat Sehat", "recommendations": "Rekomendasi",
+            "ageLabel": "Usia", "genderLabel": "Jenis Kelamin", "male": "Laki-laki", "female": "Perempuan",
+            "activityLabel": "Tingkat Aktivitas", "sedentary": "Tidak Aktif", "light": "Aktivitas Ringan", "moderate": "Aktivitas Sedang", "active": "Aktif", "veryActive": "Sangat Aktif",
+            "calculateCalories": "Hitung Kalori Harian", "dailyCalories": "Kebutuhan Kalori Harian", "caloriesPerDay": "kalori/hari",
+            "currentWeight": "Berat Saat Ini", "targetWeight": "Berat Target", "timeframe": "Jangka Waktu (minggu)",
+            "generatePlan": "Buat Rencana Diet", "personalizedPlan": "Rencana Diet Personal",
+            "underweight": "Kurus", "normal": "Berat Normal", "overweight": "Kelebihan Berat", "obese": "Obesitas",
+            "basalMetabolicRate": "Tingkat Metabolisme Basal (TMB)", "weightLossCal": "Penurunan berat (-500 kal)", "weightGainCal": "Peningkatan berat (+500 kal)", "calories": "kalori",
+            "weightLossPlan": "Rencana Penurunan Berat", "weightGainPlan": "Rencana Peningkatan Berat", "goal": "Tujuan", "lose": "Turunkan", "gain": "Naikkan",
+            "weeklyTarget": "Target Mingguan", "dailyCalorieAdjustment": "Penyesuaian Kalori Harian", "timeline": "Jadwal", "weeks": "minggu", "perWeek": "per minggu", "week": "Minggu",
+            "errorInvalidHeightWeight": "Harap masukkan nilai tinggi dan berat yang valid.", "errorFillAllFields": "Harap isi semua bidang dengan nilai yang valid.", "errorMinTimeframe": "Harap masukkan nilai yang valid. Jangka waktu minimum adalah 4 minggu.",
+            "recUnderweight1": "Tingkatkan asupan kalori dengan makanan sehat", "recUnderweight2": "Fokus pada makanan kaya protein", "recUnderweight3": "Pertimbangkan latihan kekuatan", "recUnderweight4": "Konsultasi dengan penyedia layanan kesehatan",
+            "recNormal1": "Pertahankan kebiasaan sehat saat ini", "recNormal2": "Lanjutkan aktivitas fisik teratur", "recNormal3": "Makan diet seimbang dan bergizi", "recNormal4": "Pantau berat badan secara teratur",
+            "recOverweight1": "Buat defisit kalori sedang", "recOverweight2": "Tingkatkan aktivitas fisik", "recOverweight3": "Fokus pada makanan utuh", "recOverweight4": "Pertimbangkan kontrol porsi",
+            "recObese1": "Konsultasi dengan profesional kesehatan", "recObese2": "Buat rencana penurunan berat terstruktur", "recObese3": "Mulai dengan latihan berdampak rendah", "recObese4": "Pertimbangkan konseling nutrisi",
+            "nutritionFoundation": "Dasar Nutrisi", "exerciseRoutine": "Rutina Olahraga", "hydrationFocus": "Fokus Hidrasi", "sleepOptimization": "Optimasi Tidur",
+            "stressManagement": "Manajemen Stres", "portionControl": "Kontrol Porsi", "mealTiming": "Waktu Makan", "progressReview": "Tinjauan Kemajuan",
+            "tip1_1": "Lacak asupan makanan", "tip1_2": "Mulai dengan jalan kaki harian 30 menit", "tip1_3": "Minum air sebelum makan", "tip2_1": "Tambahkan latihan kekuatan 2x/minggu", "tip2_2": "Tingkatkan asupan protein", "tip2_3": "Siapkan makanan untuk sukses",
+            "tip3_1": "Fokus pada hidrasi (8+ gelas)", "tip3_2": "Coba puasa intermiten", "tip3_3": "Tambahkan sayuran ke setiap makan", "tip4_1": "Prioritaskan tidur 7-8 jam", "tip4_2": "Praktikkan pengurangan stres", "tip4_3": "Ukur foto kemajuan",
+            "tip5_1": "Kelola stres dengan meditasi", "tip5_2": "Tingkatkan aktivitas NEAT", "tip5_3": "Rencanakan makanan curang (bukan hari)", "tip6_1": "Praktikkan makan sadar", "tip6_2": "Sesuaikan ukuran porsi", "tip6_3": "Coba resep sehat baru",
+            "tip7_1": "Optimalkan waktu makan", "tip7_2": "Tingkatkan intensitas latihan", "tip7_3": "Tetap konsisten di akhir pekan", "tip8_1": "Tinjau dan sesuaikan rencana", "tip8_2": "Rayakan kemenangan kecil", "tip8_3": "Rencanakan fase pemeliharaan",
+            "gainTip1_1": "Tingkatkan frekuensi makan", "gainTip1_2": "Tambahkan lemak sehat ke makanan", "gainTip1_3": "Mulai latihan kekuatan", "gainTip2_1": "Tambahkan shake protein", "gainTip2_2": "Fokus pada latihan compound", "gainTip2_3": "Lacak asupan kalori",
+            "gainTip3_1": "Tetap terhidrasi tapi tidak sebelum makan", "gainTip3_2": "Latihan beban progresif", "gainTip3_3": "Tambahkan kacang dan biji-bijian", "gainTip4_1": "Prioritaskan tidur untuk pemulihan", "gainTip4_2": "Kelola tingkat stres", "gainTip4_3": "Ambil foto kemajuan",
+            "gainTip5_1": "Makan porsi lebih besar secara bertahap", "gainTip5_2": "Fokus pada pembentukan otot", "gainTip5_3": "Tetap konsisten", "gainTip6_1": "Tambahkan makanan padat kalori", "gainTip6_2": "Tingkatkan volume latihan", "gainTip6_3": "Rencanakan makanan seimbang",
+            "gainTip7_1": "Optimalkan nutrisi pra/pasca latihan", "gainTip7_2": "Lacak peningkatan kekuatan", "gainTip7_3": "Tetap termotivasi", "gainTip8_1": "Tinjau kemajuan dan sesuaikan", "gainTip8_2": "Rencanakan peningkatan jangka panjang", "gainTip8_3": "Rayakan pencapaian"
+        },
+        "de": {
+            "langCode": "de", "dir": "ltr",
+            "pageTitle": "BMI-Rechner - Gewichtsmanagement und Diätplan",
+            "metaDescription": "Berechnen Sie BMI, gesundes Gewicht, tägliche Kalorien und erhalten Sie personalisierte Diätpläne. Kostenloses Gesundheitsmanagement-Tool in 12 Sprachen.",
+            "metaKeywords": "BMI Rechner, Gewichtsmanagement, Diätplan, Kalorienrechner, gesundes Gewicht",
+            "headerTitle": "BMI-Rechner", "headerSubtitle": "Gewichtsmanagement und Diätplan",
+            "bmiTab": "BMI-Rechner", "caloriesTab": "Täglicher Kalorienbedarf", "planTab": "Diätplan",
+            "metric": "Metrisch (kg/cm)", "imperial": "Imperial (lbs/ft)",
+            "heightLabel": "Größe", "weightLabel": "Gewicht", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "cm", "kgUnit": "kg", "calculateBMI": "BMI berechnen",
+            "healthyRange": "Gesunder Gewichtsbereich", "recommendations": "Empfehlungen",
+            "ageLabel": "Alter", "genderLabel": "Geschlecht", "male": "Männlich", "female": "Weiblich",
+            "activityLabel": "Aktivitätslevel", "sedentary": "Sitzend", "light": "Leichte Aktivität", "moderate": "Mäßige Aktivität", "active": "Aktiv", "veryActive": "Sehr aktiv",
+            "calculateCalories": "Tägliche Kalorien berechnen", "dailyCalories": "Täglicher Kalorienbedarf", "caloriesPerDay": "Kalorien/Tag",
+            "currentWeight": "Aktuelles Gewicht", "targetWeight": "Zielgewicht", "timeframe": "Zeitrahmen (Wochen)",
+            "generatePlan": "Diätplan erstellen", "personalizedPlan": "Personalisierter Diätplan",
+            "underweight": "Untergewicht", "normal": "Normalgewicht", "overweight": "Übergewicht", "obese": "Adipositas",
+            "basalMetabolicRate": "Grundumsatz (BMR)", "weightLossCal": "Gewichtsverlust (-500 kal)", "weightGainCal": "Gewichtszunahme (+500 kal)", "calories": "Kalorien",
+            "weightLossPlan": "Gewichtsverlust-Plan", "weightGainPlan": "Gewichtszunahme-Plan", "goal": "Ziel", "lose": "Verlieren", "gain": "Zunehmen",
+            "weeklyTarget": "Wöchentliches Ziel", "dailyCalorieAdjustment": "Tägliche Kalorienanpassung", "timeline": "Zeitrahmen", "weeks": "Wochen", "perWeek": "pro Woche", "week": "Woche",
+            "errorInvalidHeightWeight": "Bitte geben Sie gültige Größen- und Gewichtswerte ein.", "errorFillAllFields": "Bitte füllen Sie alle Felder mit gültigen Werten aus.", "errorMinTimeframe": "Bitte geben Sie gültige Werte ein. Der Mindestzeitrahmen beträgt 4 Wochen.",
+            "recUnderweight1": "Kalorienaufnahme mit gesunden Lebensmitteln erhöhen", "recUnderweight2": "Fokus auf proteinreiche Lebensmittel", "recUnderweight3": "Krafttraining in Betracht ziehen", "recUnderweight4": "Einen Gesundheitsdienstleister konsultieren",
+            "recNormal1": "Aktuelle gesunde Gewohnheiten beibehalten", "recNormal2": "Regelmäßige körperliche Aktivität fortsetzen", "recNormal3": "Eine ausgewogene, nahrhafte Ernährung einhalten", "recNormal4": "Gewicht regelmäßig überwachen",
+            "recOverweight1": "Ein moderates Kaloriendefizit schaffen", "recOverweight2": "Körperliche Aktivität steigern", "recOverweight3": "Fokus auf Vollwertkost", "recOverweight4": "Portionskontrolle in Betracht ziehen",
+            "recObese1": "Gesundheitsfachkräfte konsultieren", "recObese2": "Einen strukturierten Gewichtsverlustplan erstellen", "recObese3": "Mit schonenden Übungen beginnen", "recObese4": "Ernährungsberatung in Betracht ziehen",
+            "nutritionFoundation": "Ernährungsgrundlage", "exerciseRoutine": "Übungsroutine", "hydrationFocus": "Hydratationsfokus", "sleepOptimization": "Schlafoptimierung",
+            "stressManagement": "Stressmanagement", "portionControl": "Portionskontrolle", "mealTiming": "Mahlzeitentiming", "progressReview": "Fortschrittsbewertung",
+            "tip1_1": "Nahrungsaufnahme verfolgen", "tip1_2": "Mit 30-minütigen täglichen Spaziergängen beginnen", "tip1_3": "Vor den Mahlzeiten Wasser trinken", "tip2_1": "Krafttraining 2x/Woche hinzufügen", "tip2_2": "Proteinaufnahme erhöhen", "tip2_3": "Mahlzeiten für den Erfolg vorbereiten",
+            "tip3_1": "Fokus auf Hydratation (8+ Gläser)", "tip3_2": "Intervallfasten ausprobieren", "tip3_3": "Gemüse zu jeder Mahlzeit hinzufügen", "tip4_1": "7-8 Stunden Schlaf priorisieren", "tip4_2": "Stressreduzierung praktizieren", "tip4_3": "Fortschrittsfotos messen",
+            "tip5_1": "Stress mit Meditation bewältigen", "tip5_2": "NEAT-Aktivitäten erhöhen", "tip5_3": "Schummelbissen (nicht Tag) planen", "tip6_1": "Achtsames Essen praktizieren", "tip6_2": "Portionsgrößen anpassen", "tip6_3": "Neue gesunde Rezepte ausprobieren",
+            "tip7_1": "Mahlzeitentiming optimieren", "tip7_2": "Trainingsintensität erhöhen", "tip7_3": "Am Wochenende konsistent bleiben", "tip8_1": "Plan überprüfen und anpassen", "tip8_2": "Kleine Siege feiern", "tip8_3": "Erhaltungsphase planen",
+            "gainTip1_1": "Mahlzeitenhäufigkeit erhöhen", "gainTip1_2": "Gesunde Fette zu Mahlzeiten hinzufügen", "gainTip1_3": "Krafttraining beginnen", "gainTip2_1": "Proteinshakes hinzufügen", "gainTip2_2": "Fokus auf zusammengesetzte Übungen", "gainTip2_3": "Kalorienaufnahme verfolgen",
+            "gainTip3_1": "Hydratisiert bleiben, aber nicht vor Mahlzeiten", "gainTip3_2": "Progressive Überlastung trainieren", "gainTip3_3": "Nüsse und Samen hinzufügen", "gainTip4_1": "Schlaf für die Erholung priorisieren", "gainTip4_2": "Stresslevel bewältigen", "gainTip4_3": "Fortschrittsfotos machen",
+            "gainTip5_1": "Allmählich größere Portionen essen", "gainTip5_2": "Fokus auf Muskelaufbau", "gainTip5_3": "Konsistent bleiben", "gainTip6_1": "Kalorienreiche Lebensmittel hinzufügen", "gainTip6_2": "Trainingsvolumen erhöhen", "gainTip6_3": "Ausgewogene Mahlzeiten planen",
+            "gainTip7_1": "Vor-/Nach-Training-Ernährung optimieren", "gainTip7_2": "Kraftzuwächse verfolgen", "gainTip7_3": "Motiviert bleiben", "gainTip8_1": "Fortschritt überprüfen und anpassen", "gainTip8_2": "Langfristige Gewinne planen", "gainTip8_3": "Erfolge feiern"
+        },
+        "fr": {
+            "langCode": "fr", "dir": "ltr",
+            "pageTitle": "Calculateur d'IMC - Gestion du Poids et Plan de Régime",
+            "metaDescription": "Calculez l'IMC, le poids santé, les calories quotidiennes et obtenez des plans de régime personnalisés. Outil gratuit de gestion de la santé en 12 langues.",
+            "metaKeywords": "calculateur IMC, gestion poids, plan régime, calculateur calories, poids santé",
+            "headerTitle": "Calculateur d'IMC", "headerSubtitle": "Gestion du Poids et Plan de Régime",
+            "bmiTab": "Calculateur IMC", "caloriesTab": "Besoins Caloriques Quotidiens", "planTab": "Plan de Régime",
+            "metric": "Métrique (kg/cm)", "imperial": "Impérial (lbs/ft)",
+            "heightLabel": "Taille", "weightLabel": "Poids", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "cm", "kgUnit": "kg", "calculateBMI": "Calculer l'IMC",
+            "healthyRange": "Plage de Poids Santé", "recommendations": "Recommandations",
+            "ageLabel": "Âge", "genderLabel": "Sexe", "male": "Masculin", "female": "Féminin",
+            "activityLabel": "Niveau d'Activité", "sedentary": "Sédentaire", "light": "Activité légère", "moderate": "Activité modérée", "active": "Actif", "veryActive": "Très actif",
+            "calculateCalories": "Calculer les Calories Quotidiennes", "dailyCalories": "Besoins Caloriques Quotidiens", "caloriesPerDay": "calories/jour",
+            "currentWeight": "Poids Actuel", "targetWeight": "Poids Cible", "timeframe": "Délai (semaines)",
+            "generatePlan": "Générer un Plan de Régime", "personalizedPlan": "Plan de Régime Personnalisé",
+            "underweight": "Insuffisance pondérale", "normal": "Poids normal", "overweight": "Surpoids", "obese": "Obésité",
+            "basalMetabolicRate": "Métabolisme de Base (MB)", "weightLossCal": "Perte de poids (-500 cal)", "weightGainCal": "Prise de poids (+500 cal)", "calories": "calories",
+            "weightLossPlan": "Plan de Perte de Poids", "weightGainPlan": "Plan de Prise de Poids", "goal": "Objectif", "lose": "Perdre", "gain": "Prendre",
+            "weeklyTarget": "Objectif Hebdomadaire", "dailyCalorieAdjustment": "Ajustement Calorique Quotidien", "timeline": "Calendrier", "weeks": "semaines", "perWeek": "par semaine", "week": "Semaine",
+            "errorInvalidHeightWeight": "Veuillez entrer des valeurs de taille et de poids valides.", "errorFillAllFields": "Veuillez remplir tous les champs avec des valeurs valides.", "errorMinTimeframe": "Veuillez entrer des valeurs valides. Le délai minimum est de 4 semaines.",
+            "recUnderweight1": "Augmenter l'apport calorique avec des aliments sains", "recUnderweight2": "Se concentrer sur les aliments riches en protéines", "recUnderweight3": "Envisager des exercices de musculation", "recUnderweight4": "Consulter un professionnel de la santé",
+            "recNormal1": "Maintenir les habitudes saines actuelles", "recNormal2": "Continuer l'activité physique régulière", "recNormal3": "Manger une alimentation équilibrée et nutritive", "recNormal4": "Surveiller le poids régulièrement",
+            "recOverweight1": "Créer un déficit calorique modéré", "recOverweight2": "Augmenter l'activité physique", "recOverweight3": "Se concentrer sur les aliments complets", "recOverweight4": "Envisager le contrôle des portions",
+            "recObese1": "Consulter des professionnels de la santé", "recObese2": "Créer un plan de perte de poids structuré", "recObese3": "Commencer par des exercices à faible impact", "recObese4": "Envisager un conseil nutritionnel",
+            "nutritionFoundation": "Base Nutritionnelle", "exerciseRoutine": "Routine d'Exercice", "hydrationFocus": "Focus Hydratation", "sleepOptimization": "Optimisation du Sommeil",
+            "stressManagement": "Gestion du Stress", "portionControl": "Contrôle des Portions", "mealTiming": "Horaire des Repas", "progressReview": "Révision des Progrès",
+            "tip1_1": "Suivre l'apport alimentaire", "tip1_2": "Commencer par des marches quotidiennes de 30min", "tip1_3": "Boire de l'eau avant les repas", "tip2_1": "Ajouter de la musculation 2x/semaine", "tip2_2": "Augmenter l'apport en protéines", "tip2_3": "Préparer les repas pour le succès",
+            "tip3_1": "Se concentrer sur l'hydratation (8+ verres)", "tip3_2": "Essayer le jeûne intermittent", "tip3_3": "Ajouter des légumes à chaque repas", "tip4_1": "Prioriser 7-8 heures de sommeil", "tip4_2": "Pratiquer la réduction du stress", "tip4_3": "Mesurer les photos de progrès",
+            "tip5_1": "Gérer le stress avec la méditation", "tip5_2": "Augmenter les activités NEAT", "tip5_3": "Planifier un repas de triche (pas un jour)", "tip6_1": "Pratiquer une alimentation consciente", "tip6_2": "Ajuster la taille des portions", "tip6_3": "Essayer de nouvelles recettes saines",
+            "tip7_1": "Optimiser le timing des repas", "tip7_2": "Augmenter l'intensité de l'entraînement", "tip7_3": "Rester cohérent les week-ends", "tip8_1": "Réviser et ajuster le plan", "tip8_2": "Célébrer les petites victoires", "tip8_3": "Planifier la phase de maintenance",
+            "gainTip1_1": "Augmenter la fréquence des repas", "gainTip1_2": "Ajouter des graisses saines aux repas", "gainTip1_3": "Commencer la musculation", "gainTip2_1": "Ajouter des shakes protéinés", "gainTip2_2": "Se concentrer sur les exercices composés", "gainTip2_3": "Suivre l'apport calorique",
+            "gainTip3_1": "Rester hydraté mais pas avant les repas", "gainTip3_2": "Entraînement de surcharge progressive", "gainTip3_3": "Ajouter des noix et graines", "gainTip4_1": "Prioriser le sommeil pour la récupération", "gainTip4_2": "Gérer les niveaux de stress", "gainTip4_3": "Prendre des photos de progrès",
+            "gainTip5_1": "Manger de plus grandes portions graduellement", "gainTip5_2": "Se concentrer sur la construction musculaire", "gainTip5_3": "Rester cohérent", "gainTip6_1": "Ajouter des aliments riches en calories", "gainTip6_2": "Augmenter le volume d'entraînement", "gainTip6_3": "Planifier des repas équilibrés",
+            "gainTip7_1": "Optimiser la nutrition pré/post entraînement", "gainTip7_2": "Suivre les gains de force", "gainTip7_3": "Rester motivé", "gainTip8_1": "Réviser les progrès et ajuster", "gainTip8_2": "Planifier des gains à long terme", "gainTip8_3": "Célébrer les réussites"
+        },
+        "ja": {
+            "langCode": "ja", "dir": "ltr",
+            "pageTitle": "BMI計算機 - 体重管理とダイエットプラン",
+            "metaDescription": "BMI、健康的な体重、日々のカロリーを計算し、個人向けダイエットプランを取得。12言語対応の無料健康管理ツール。",
+            "metaKeywords": "BMI計算機, 体重管理, ダイエットプラン, カロリー計算機, 健康的な体重",
+            "headerTitle": "BMI計算機", "headerSubtitle": "体重管理とダイエットプラン",
+            "bmiTab": "BMI計算", "caloriesTab": "日々のカロリー必要量", "planTab": "ダイエットプラン",
+            "metric": "メートル法 (kg/cm)", "imperial": "ヤード・ポンド法 (lbs/ft)",
+            "heightLabel": "身長", "weightLabel": "体重", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "cm", "kgUnit": "kg", "calculateBMI": "BMIを計算",
+            "healthyRange": "健康的な体重範囲", "recommendations": "推奨事項",
+            "ageLabel": "年齢", "genderLabel": "性別", "male": "男性", "female": "女性",
+            "activityLabel": "活動レベル", "sedentary": "座りがち", "light": "軽い活動", "moderate": "中程度の活動", "active": "活発", "veryActive": "非常に活発",
+            "calculateCalories": "日々のカロリーを計算", "dailyCalories": "日々のカロリー必要量", "caloriesPerDay": "カロリー/日",
+            "currentWeight": "現在の体重", "targetWeight": "目標体重", "timeframe": "期間（週）",
+            "generatePlan": "ダイエットプランを生成", "personalizedPlan": "個人向けダイエットプラン",
+            "underweight": "低体重", "normal": "普通体重", "overweight": "過体重", "obese": "肥満",
+            "basalMetabolicRate": "基礎代謝率 (BMR)", "weightLossCal": "体重減少 (-500 カロリー)", "weightGainCal": "体重増加 (+500 カロリー)", "calories": "カロリー",
+            "weightLossPlan": "体重減少プラン", "weightGainPlan": "体重増加プラン", "goal": "目標", "lose": "減らす", "gain": "増やす",
+            "weeklyTarget": "週間目標", "dailyCalorieAdjustment": "日々のカロリー調整", "timeline": "タイムライン", "weeks": "週", "perWeek": "週あたり", "week": "週",
+            "errorInvalidHeightWeight": "有効な身長と体重の値を入力してください。", "errorFillAllFields": "すべてのフィールドに有効な値を入力してください。", "errorMinTimeframe": "有効な値を入力してください。最小期間は4週間です。",
+            "recUnderweight1": "健康的な食べ物でカロリー摂取を増やす", "recUnderweight2": "タンパク質豊富な食品に焦点を当てる", "recUnderweight3": "筋力トレーニングを検討する", "recUnderweight4": "医療提供者に相談する",
+            "recNormal1": "現在の健康的な習慣を維持する", "recNormal2": "定期的な身体活動を続ける", "recNormal3": "バランスの取れた栄養のある食事を摂る", "recNormal4": "定期的に体重を監視する",
+            "recOverweight1": "適度なカロリー不足を作る", "recOverweight2": "身体活動を増やす", "recOverweight3": "ホールフードに焦点を当てる", "recOverweight4": "ポーション管理を検討する",
+            "recObese1": "医療専門家に相談する", "recObese2": "構造化された減量計画を作成する", "recObese3": "低インパクトの運動から始める", "recObese4": "栄養カウンセリングを検討する",
+            "nutritionFoundation": "栄養基盤", "exerciseRoutine": "運動ルーチン", "hydrationFocus": "水分補給フォーカス", "sleepOptimization": "睡眠最適化",
+            "stressManagement": "ストレス管理", "portionControl": "ポーション管理", "mealTiming": "食事タイミング", "progressReview": "進捗レビュー",
+            "tip1_1": "食事摂取を追跡する", "tip1_2": "30分の毎日の散歩から始める", "tip1_3": "食事前に水を飲む", "tip2_1": "週2回筋力トレーニングを追加", "tip2_2": "タンパク質摂取を増やす", "tip2_3": "成功のための食事準備",
+            "tip3_1": "水分補給に焦点を当てる（8杯以上）", "tip3_2": "間欠的断食を試す", "tip3_3": "すべての食事に野菜を追加", "tip4_1": "7-8時間の睡眠を優先", "tip4_2": "ストレス軽減を練習", "tip4_3": "進捗写真を測定",
+                        "tip5_1": "瞑想でストレスを管理", "tip5_2": "NEAT活動を増やす", "tip5_3": "チートミール（日でなく）を計画", "tip6_1": "マインドフル食事を練習", "tip6_2": "ポーションサイズを調整", "tip6_3": "新しい健康レシピを試す",
+            "tip7_1": "食事タイミングを最適化", "tip7_2": "ワークアウト強度を増やす", "tip7_3": "週末も一貫性を保つ", "tip8_1": "計画を見直し調整", "tip8_2": "小さな勝利を祝う", "tip8_3": "維持フェーズを計画",
+            "gainTip1_1": "食事頻度を増やす", "gainTip1_2": "食事に健康的な脂肪を追加", "gainTip1_3": "筋力トレーニングを開始", "gainTip2_1": "プロテインシェイクを追加", "gainTip2_2": "複合運動に焦点", "gainTip2_3": "カロリー摂取を追跡",
+            "gainTip3_1": "水分補給するが食事前は避ける", "gainTip3_2": "漸進的過負荷トレーニング", "gainTip3_3": "ナッツと種子を追加", "gainTip4_1": "回復のための睡眠を優先", "gainTip4_2": "ストレスレベルを管理", "gainTip4_3": "進捗写真を撮る",
+            "gainTip5_1": "徐々に大きなポーションを食べる", "gainTip5_2": "筋肉構築に焦点", "gainTip5_3": "一貫性を保つ", "gainTip6_1": "カロリー密度の高い食品を追加", "gainTip6_2": "トレーニング量を増やす", "gainTip6_3": "バランスの取れた食事を計画",
+            "gainTip7_1": "ワークアウト前後の栄養を最適化", "gainTip7_2": "筋力増加を追跡", "gainTip7_3": "モチベーションを維持", "gainTip8_1": "進捗を見直し調整", "gainTip8_2": "長期的な増加を計画", "gainTip8_3": "成果を祝う"
+        },
+        "ru": {
+            "langCode": "ru", "dir": "ltr",
+            "pageTitle": "Калькулятор ИМТ - Управление Весом и План Диеты",
+            "metaDescription": "Рассчитайте ИМТ, здоровый вес, дневные калории и получите персональные планы диеты. Бесплатный инструмент управления здоровьем на 12 языках.",
+            "metaKeywords": "калькулятор ИМТ, управление весом, план диеты, калькулятор калорий, здоровый вес",
+            "headerTitle": "Калькулятор ИМТ", "headerSubtitle": "Управление Весом и План Диеты",
+            "bmiTab": "Калькулятор ИМТ", "caloriesTab": "Дневная Потребность в Калориях", "planTab": "План Диеты",
+            "metric": "Метрическая (кг/см)", "imperial": "Имперская (фунты/футы)",
+            "heightLabel": "Рост", "weightLabel": "Вес", "heightPlaceholder": "170", "weightPlaceholder": "70",
+            "cmUnit": "см", "kgUnit": "кг", "calculateBMI": "Рассчитать ИМТ",
+            "healthyRange": "Диапазон Здорового Веса", "recommendations": "Рекомендации",
+            "ageLabel": "Возраст", "genderLabel": "Пол", "male": "Мужской", "female": "Женский",
+            "activityLabel": "Уровень Активности", "sedentary": "Малоподвижный", "light": "Легкая активность", "moderate": "Умеренная активность", "active": "Активный", "veryActive": "Очень активный",
+            "calculateCalories": "Рассчитать Дневные Калории", "dailyCalories": "Дневная Потребность в Калориях", "caloriesPerDay": "калорий/день",
+            "currentWeight": "Текущий Вес", "targetWeight": "Целевой Вес", "timeframe": "Временные Рамки (недели)",
+            "generatePlan": "Создать План Диеты", "personalizedPlan": "Персональный План Диеты",
+            "underweight": "Недостаточный вес", "normal": "Нормальный вес", "overweight": "Избыточный вес", "obese": "Ожирение",
+            "basalMetabolicRate": "Базовый Метаболизм (БМ)", "weightLossCal": "Потеря веса (-500 кал)", "weightGainCal": "Набор веса (+500 кал)", "calories": "калорий",
+            "weightLossPlan": "План Похудения", "weightGainPlan": "План Набора Веса", "goal": "Цель", "lose": "Сбросить", "gain": "Набрать",
+            "weeklyTarget": "Недельная Цель", "dailyCalorieAdjustment": "Ежедневная Корректировка Калорий", "timeline": "График", "weeks": "недель", "perWeek": "в неделю", "week": "Неделя",
+            "errorInvalidHeightWeight": "Пожалуйста, введите действительные значения роста и веса.", "errorFillAllFields": "Пожалуйста, заполните все поля действительными значениями.", "errorMinTimeframe": "Пожалуйста, введите действительные значения. Минимальный срок составляет 4 недели.",
+            "recUnderweight1": "Увеличить потребление калорий здоровой пищей", "recUnderweight2": "Сосредоточиться на белковой пище", "recUnderweight3": "Рассмотреть силовые тренировки", "recUnderweight4": "Проконсультироваться с врачом",
+            "recNormal1": "Поддерживать текущие здоровые привычки", "recNormal2": "Продолжать регулярную физическую активность", "recNormal3": "Есть сбалансированную, питательную пищу", "recNormal4": "Регулярно контролировать вес",
+            "recOverweight1": "Создать умеренный дефицит калорий", "recOverweight2": "Увеличить физическую активность", "recOverweight3": "Сосредоточиться на цельных продуктах", "recOverweight4": "Рассмотреть контроль порций",
+            "recObese1": "Проконсультироваться со специалистами", "recObese2": "Создать структурированный план похудения", "recObese3": "Начать с низкоинтенсивных упражнений", "recObese4": "Рассмотреть консультацию по питанию",
+            "nutritionFoundation": "Основы Питания", "exerciseRoutine": "Программа Упражнений", "hydrationFocus": "Фокус на Гидратации", "sleepOptimization": "Оптимизация Сна",
+            "stressManagement": "Управление Стрессом", "portionControl": "Контроль Порций", "mealTiming": "Время Приема Пищи", "progressReview": "Обзор Прогресса",
+            "tip1_1": "Отслеживать потребление пищи", "tip1_2": "Начать с 30-минутных ежедневных прогулок", "tip1_3": "Пить воду перед едой", "tip2_1": "Добавить силовые тренировки 2 раза в неделю", "tip2_2": "Увеличить потребление белка", "tip2_3": "Готовить еду для успеха",
+            "tip3_1": "Сосредоточиться на гидратации (8+ стаканов)", "tip3_2": "Попробовать интервальное голодание", "tip3_3": "Добавлять овощи в каждый прием пищи", "tip4_1": "Приоритет 7-8 часов сна", "tip4_2": "Практиковать снижение стресса", "tip4_3": "Измерять фото прогресса",
+            "tip5_1": "Управлять стрессом с помощью медитации", "tip5_2": "Увеличить NEAT активности", "tip5_3": "Планировать читмил (не день)", "tip6_1": "Практиковать осознанное питание", "tip6_2": "Регулировать размеры порций", "tip6_3": "Пробовать новые здоровые рецепты",
+            "tip7_1": "Оптимизировать время приема пищи", "tip7_2": "Увеличить интенсивность тренировок", "tip7_3": "Оставаться последовательным по выходным", "tip8_1": "Пересматривать и корректировать план", "tip8_2": "Праздновать маленькие победы", "tip8_3": "Планировать фазу поддержания",
+            "gainTip1_1": "Увеличить частоту приемов пищи", "gainTip1_2": "Добавить здоровые жиры в блюда", "gainTip1_3": "Начать силовые тренировки", "gainTip2_1": "Добавить протеиновые коктейли", "gainTip2_2": "Сосредоточиться на базовых упражнениях", "gainTip2_3": "Отслеживать потребление калорий",
+            "gainTip3_1": "Оставаться гидратированным, но не перед едой", "gainTip3_2": "Прогрессивная перегрузка тренировок", "gainTip3_3": "Добавить орехи и семена", "gainTip4_1": "Приоритет сна для восстановления", "gainTip4_2": "Управлять уровнями стресса", "gainTip4_3": "Делать фото прогресса",
+            "gainTip5_1": "Постепенно есть большие порции", "gainTip5_2": "Сосредоточиться на наборе мышечной массы", "gainTip5_3": "Оставаться последовательным", "gainTip6_1": "Добавить калорийные продукты", "gainTip6_2": "Увеличить объем тренировок", "gainTip6_3": "Планировать сбалансированные блюда",
+            "gainTip7_1": "Оптимизировать питание до/после тренировки", "gainTip7_2": "Отслеживать прирост силы", "gainTip7_3": "Оставаться мотивированным", "gainTip8_1": "Пересматривать прогресс и корректировать", "gainTip8_2": "Планировать долгосрочные успехи", "gainTip8_3": "Праздновать достижения"
+        }
+    };
+
+    // --- GLOBAL VARIABLES ---
+    let currentLang = 'ko';
+    let currentUnit = 'metric';
+
+    // --- LANGUAGE FUNCTIONS ---
+    function getInitialLanguage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const lang = urlParams.get('lang');
+        if (lang && Object.keys(translations).includes(lang)) {
+            return lang;
+        }
+        const browserLang = navigator.language.split('-')[0];
+        return Object.keys(translations).includes(browserLang) ? browserLang : 'ko';
+    }
+
+    function setLanguage(lang) {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('lang') !== lang) {
+            urlParams.set('lang', lang);
+            history.replaceState(null, '', `${window.location.pathname}?${urlParams}`);
+        }
+        
+        currentLang = lang;
+        const t = translations[lang];
+
+        document.documentElement.lang = t.langCode;
+        document.body.dir = t.dir;
+
+        // Update meta tags
+        document.title = t.pageTitle;
+        document.querySelector('meta[name="description"]').content = t.metaDescription;
+        document.querySelector('meta[name="keywords"]').content = t.metaKeywords;
+        
+        // Update Open Graph tags
+        document.querySelector('meta[property="og:title"]').content = t.pageTitle;
+        document.querySelector('meta[property="og:description"]').content = t.metaDescription;
+        document.querySelector('meta[property="og:locale"]').content = t.langCode.replace('-', '_');
+        
+        // Update Twitter Card tags
+        document.querySelector('meta[name="twitter:title"]').content = t.pageTitle;
+        document.querySelector('meta[name="twitter:description"]').content = t.metaDescription;
+
+        // Generate hreflang links
+        const head = document.querySelector('head');
+        head.querySelectorAll('link[rel="alternate"]').forEach(link => link.remove());
+        Object.keys(translations).forEach(code => {
+            const link = document.createElement('link');
+            link.rel = 'alternate';
+            link.hreflang = translations[code].langCode.toLowerCase();
+            link.href = `https://tjq8288.github.io/bmi-calculator/?lang=${code}`;
+            head.appendChild(link);
+        });
+
+        // Apply translations
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            if (t[key]) el.textContent = t[key];
+        });
+
+        // Update placeholders
+        document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-translate-placeholder');
+            if (t[key]) el.placeholder = t[key];
+        });
+
+        updateUnitLabels();
+    }
+
+    function createLanguageSelector() {
+        const container = document.getElementById('language-selector');
+        const select = document.createElement('select');
+        select.id = 'lang-switcher';
+        
+        const langNames = {
+            'ko': '한국어', 'en': 'English', 'zh': '中文', 'es': 'Español',
+            'ar': 'العربية', 'pt': 'Português', 'hi': 'हिन्दी', 'id': 'Indonesia',
+            'de': 'Deutsch', 'fr': 'Français', 'ja': '日本語', 'ru': 'Русский'
+        };
+
+        Object.entries(langNames).forEach(([code, name]) => {
+            const option = document.createElement('option');
+            option.value = code;
+            option.textContent = name;
+            select.appendChild(option);
+        });
+        
+        select.value = currentLang;
+        select.addEventListener('change', (e) => setLanguage(e.target.value));
+        container.appendChild(select);
+    }
+
+    // --- BMI CALCULATION FUNCTIONS ---
+    function calculateBMI() {
+        const t = translations[currentLang];
+        const height = parseFloat(document.getElementById('height').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        
+        if (!height || !weight || height <= 0 || weight <= 0) {
+            showMessage(t.errorInvalidHeightWeight, 'error');
+            return;
+        }
+
+        let heightInM, weightInKg;
+        
+        if (currentUnit === 'imperial') {
+            heightInM = height * 0.3048; // feet to meters
+            weightInKg = weight * 0.453592; // pounds to kg
+        } else {
+            heightInM = height / 100; // cm to meters
+            weightInKg = weight;
+        }
+
+        const bmi = weightInKg / (heightInM * heightInM);
+        const category = getBMICategory(bmi);
+        const healthyRange = getHealthyWeightRange(heightInM);
+        
+        displayBMIResults(bmi, category, healthyRange, heightInM);
+    }
+
+    function getBMICategory(bmi) {
+        const t = translations[currentLang];
+        if (bmi < 18.5) return { name: 'underweight', text: t.underweight };
+        if (bmi < 25) return { name: 'normal', text: t.normal };
+        if (bmi < 30) return { name: 'overweight', text: t.overweight };
+        return { name: 'obese', text: t.obese };
+    }
+
+    function getHealthyWeightRange(heightInM) {
+        const minWeight = 18.5 * heightInM * heightInM;
+        const maxWeight = 24.9 * heightInM * heightInM;
+        
+        if (currentUnit === 'imperial') {
+            return {
+                min: Math.round(minWeight * 2.20462),
+                max: Math.round(maxWeight * 2.20462),
+                unit: 'lbs'
+            };
+        }
+        
+        return {
+            min: Math.round(minWeight),
+            max: Math.round(maxWeight),
+            unit: 'kg'
+        };
+    }
+
+    function displayBMIResults(bmi, category, healthyRange, heightInM) {
+        document.getElementById('bmi-value').textContent = bmi.toFixed(1);
+        
+        const categoryEl = document.getElementById('bmi-category');
+        categoryEl.textContent = category.text;
+        categoryEl.className = `bmi-category ${category.name}`;
+        
+        document.getElementById('healthy-weight-range').textContent = 
+            `${healthyRange.min} - ${healthyRange.max} ${healthyRange.unit}`;
+        
+        const recommendations = getRecommendations(bmi, category.name);
+        displayRecommendations(recommendations);
+        
+        document.getElementById('bmi-results').classList.remove('hidden');
+    }
+
+    function getRecommendations(bmi, category) {
+        const t = translations[currentLang];
+        const recommendations = [];
+        
+        switch(category) {
+            case 'underweight':
+                recommendations.push(t.recUnderweight1);
+                recommendations.push(t.recUnderweight2);
+                recommendations.push(t.recUnderweight3);
+                recommendations.push(t.recUnderweight4);
+                break;
+            case 'normal':
+                recommendations.push(t.recNormal1);
+                recommendations.push(t.recNormal2);
+                recommendations.push(t.recNormal3);
+                recommendations.push(t.recNormal4);
+                break;
+            case 'overweight':
+                recommendations.push(t.recOverweight1);
+                recommendations.push(t.recOverweight2);
+                recommendations.push(t.recOverweight3);
+                recommendations.push(t.recOverweight4);
+                break;
+            case 'obese':
+                recommendations.push(t.recObese1);
+                recommendations.push(t.recObese2);
+                recommendations.push(t.recObese3);
+                recommendations.push(t.recObese4);
+                break;
+        }
+        
+        return recommendations;
+    }
+
+    function displayRecommendations(recommendations) {
+        const container = document.getElementById('recommendation-list');
+        container.innerHTML = '';
+        
+        recommendations.forEach(rec => {
+            const item = document.createElement('div');
+            item.className = 'recommendation-item';
+            item.textContent = rec;
+            container.appendChild(item);
+        });
+    }
+
+    // --- CALORIE CALCULATION FUNCTIONS ---
+    function calculateCalories() {
+        const t = translations[currentLang];
+        const age = parseInt(document.getElementById('age').value);
+        const gender = document.getElementById('gender').value;
+        const height = parseFloat(document.getElementById('height').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        const activity = document.getElementById('activity').value;
+        
+        if (!age || !height || !weight || age <= 0 || height <= 0 || weight <= 0) {
+            showMessage(t.errorFillAllFields, 'error');
+            return;
+        }
+
+        let heightInCm, weightInKg;
+        
+        if (currentUnit === 'imperial') {
+            heightInCm = height * 30.48; // feet to cm
+            weightInKg = weight * 0.453592; // pounds to kg
+        } else {
+            heightInCm = height;
+            weightInKg = weight;
+        }
+
+        const bmr = calculateBMR(age, gender, weightInKg, heightInCm);
+        const dailyCalories = bmr * getActivityMultiplier(activity);
+        
+        displayCalorieResults(Math.round(dailyCalories), Math.round(bmr));
+    }
+
+    function calculateBMR(age, gender, weightInKg, heightInCm) {
+        if (gender === 'male') {
+            return 88.362 + (13.397 * weightInKg) + (4.799 * heightInCm) - (5.677 * age);
+        } else {
+            return 447.593 + (9.247 * weightInKg) + (3.098 * heightInCm) - (4.330 * age);
+        }
+    }
+
+    function getActivityMultiplier(activity) {
+        const multipliers = {
+            sedentary: 1.2,
+            light: 1.375,
+            moderate: 1.55,
+            active: 1.725,
+            veryActive: 1.9
+        };
+        return multipliers[activity] || 1.2;
+    }
+
+    function displayCalorieResults(dailyCalories, bmr) {
+        const t = translations[currentLang];
+        document.getElementById('calorie-value').textContent = dailyCalories.toLocaleString();
+        
+        const breakdown = document.getElementById('calorie-breakdown');
+        breakdown.innerHTML = `
+            <div style="margin-top: 15px;">
+                <p><strong>${t.basalMetabolicRate}:</strong> ${bmr.toLocaleString()} ${t.calories}</p>
+                <p><strong>${t.weightLossCal}:</strong> ${(dailyCalories - 500).toLocaleString()} ${t.calories}</p>
+                <p><strong>${t.weightGainCal}:</strong> ${(dailyCalories + 500).toLocaleString()} ${t.calories}</p>
+            </div>
+        `;
+        
+        document.getElementById('calorie-results').classList.remove('hidden');
+    }
+
+    // --- DIET PLAN FUNCTIONS ---
+    function generateDietPlan() {
+        const t = translations[currentLang];
+        const currentWeight = parseFloat(document.getElementById('current-weight').value);
+        const targetWeight = parseFloat(document.getElementById('target-weight').value);
+        const timeframe = parseInt(document.getElementById('timeframe').value);
+        
+        if (!currentWeight || !targetWeight || !timeframe || timeframe < 4) {
+            showMessage(t.errorMinTimeframe, 'error');
+            return;
+        }
+
+        const weightDiff = currentWeight - targetWeight;
+        const weeklyGoal = Math.abs(weightDiff) / timeframe;
+        const safeWeeklyGoal = Math.min(weeklyGoal, 1); // Max 1kg per week
+        const calorieAdjustment = weightDiff > 0 ? -500 : 500;
+        
+        displayDietPlan(weightDiff, safeWeeklyGoal, timeframe, calorieAdjustment);
+    }
+
+    function displayDietPlan(weightDiff, weeklyGoal, timeframe, calorieAdjustment) {
+        const t = translations[currentLang];
+        const isWeightLoss = weightDiff > 0;
+        const totalWeightChange = Math.abs(weightDiff);
+        
+        const summary = document.getElementById('plan-summary');
+        summary.innerHTML = `
+            <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <h4>${isWeightLoss ? t.weightLossPlan : t.weightGainPlan}</h4>
+                <p><strong>${t.goal}:</strong> ${isWeightLoss ? t.lose : t.gain} ${totalWeightChange.toFixed(1)} kg</p>
+                <p><strong>${t.weeklyTarget}:</strong> ${weeklyGoal.toFixed(1)} kg ${t.perWeek}</p>
+                <p><strong>${t.dailyCalorieAdjustment}:</strong> ${calorieAdjustment > 0 ? '+' : ''}${calorieAdjustment} ${t.calories}</p>
+                <p><strong>${t.timeline}:</strong> ${timeframe} ${t.weeks}</p>
+            </div>
+        `;
+
+        const weeklyPlan = generateWeeklyPlan(timeframe, weeklyGoal, isWeightLoss);
+        displayWeeklyPlan(weeklyPlan);
+        
+        document.getElementById('diet-plan-results').classList.remove('hidden');
+    }
+
+    function generateWeeklyPlan(totalWeeks, weeklyGoal, isWeightLoss) {
+        const t = translations[currentLang];
+        const plan = [];
+        const focuses = [
+            t.nutritionFoundation, t.exerciseRoutine, t.hydrationFocus, t.sleepOptimization,
+            t.stressManagement, t.portionControl, t.mealTiming, t.progressReview
+        ];
+        
+        for (let week = 1; week <= Math.min(totalWeeks, 8); week++) {
+            plan.push({
+                week: week,
+                focus: focuses[(week - 1) % focuses.length],
+                goal: `${isWeightLoss ? t.lose : t.gain} ${weeklyGoal.toFixed(1)} kg`,
+                tips: getWeeklyTips(week, isWeightLoss)
+            });
+        }
+        
+        return plan;
+    }
+
+    function getWeeklyTips(week, isWeightLoss) {
+        const t = translations[currentLang];
+        
+        const weightLossTips = [
+            [t.tip1_1, t.tip1_2, t.tip1_3],
+            [t.tip2_1, t.tip2_2, t.tip2_3],
+            [t.tip3_1, t.tip3_2, t.tip3_3],
+            [t.tip4_1, t.tip4_2, t.tip4_3],
+            [t.tip5_1, t.tip5_2, t.tip5_3],
+            [t.tip6_1, t.tip6_2, t.tip6_3],
+            [t.tip7_1, t.tip7_2, t.tip7_3],
+            [t.tip8_1, t.tip8_2, t.tip8_3]
+        ];
+        
+        const weightGainTips = [
+            [t.gainTip1_1, t.gainTip1_2, t.gainTip1_3],
+            [t.gainTip2_1, t.gainTip2_2, t.gainTip2_3],
+            [t.gainTip3_1, t.gainTip3_2, t.gainTip3_3],
+            [t.gainTip4_1, t.gainTip4_2, t.gainTip4_3],
+            [t.gainTip5_1, t.gainTip5_2, t.gainTip5_3],
+            [t.gainTip6_1, t.gainTip6_2, t.gainTip6_3],
+            [t.gainTip7_1, t.gainTip7_2, t.gainTip7_3],
+            [t.gainTip8_1, t.gainTip8_2, t.gainTip8_3]
+        ];
+        
+        const tips = isWeightLoss ? weightLossTips : weightGainTips;
+        return tips[(week - 1) % tips.length] || tips[0];
+    }
+
+    function displayWeeklyPlan(plan) {
+        const t = translations[currentLang];
+        const container = document.getElementById('weekly-plan');
+        container.innerHTML = '';
+        
+        plan.forEach(week => {
+            const weekDiv = document.createElement('div');
+            weekDiv.className = 'week-plan';
+            weekDiv.innerHTML = `
+                <div class="week-header">${t.week} ${week.week}: ${week.focus}</div>
+                <p><strong>${t.goal}:</strong> ${week.goal}</p>
+                <ul style="margin-top: 10px;">
+                    ${week.tips.map(tip => `<li>${tip}</li>`).join('')}
+                </ul>
+            `;
+            container.appendChild(weekDiv);
+        });
+    }
+
+    // --- UTILITY FUNCTIONS ---
+    function updateUnitLabels() {
+        const heightUnit = document.getElementById('height-unit');
+        const weightUnit = document.getElementById('weight-unit');
+        
+        if (currentUnit === 'imperial') {
+            heightUnit.textContent = 'ft';
+            weightUnit.textContent = 'lbs';
+            document.getElementById('height').placeholder = '5.7';
+            document.getElementById('weight').placeholder = '155';
+        } else {
+            heightUnit.textContent = 'cm';
+            weightUnit.textContent = 'kg';
+            document.getElementById('height').placeholder = '170';
+            document.getElementById('weight').placeholder = '70';
+        }
+    }
+
+    function showMessage(message, type = 'success') {
+        const existingMessage = document.querySelector('.error-message, .success-message');
+        if (existingMessage) existingMessage.remove();
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = type === 'error' ? 'error-message' : 'success-message';
+        messageDiv.textContent = message;
+        
+        document.querySelector('.main-content').appendChild(messageDiv);
+        
+        setTimeout(() => messageDiv.remove(), 3000);
+    }
+
+    // --- EVENT LISTENERS ---
+    function initializeEventListeners() {
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
+                
+                // Update tab appearance
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${targetTab}-tab`).classList.add('active');
+            });
+        });
+
+        // Unit toggle
+        document.querySelectorAll('.unit-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.unit-option').forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                
+                currentUnit = option.dataset.unit;
+                updateUnitLabels();
+            });
+        });
+
+        // Enter key support
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const activeTab = document.querySelector('.tab.active').dataset.tab;
+                if (activeTab === 'bmi') calculateBMI();
+                else if (activeTab === 'calories') calculateCalories();
+                else if (activeTab === 'plan') generateDietPlan();
+            }
+        });
+    }
+
+    // Make functions global
+    window.calculateBMI = calculateBMI;
+    window.calculateCalories = calculateCalories;
+    window.generateDietPlan = generateDietPlan;
+
+    // --- INITIALIZATION ---
+    function initialize() {
+        const initialLang = getInitialLanguage();
+        setLanguage(initialLang);
+        createLanguageSelector();
+        initializeEventListeners();
+        updateUnitLabels();
+    }
+
+    initialize();
+});
+</script>
+</body>
+</html>
+
